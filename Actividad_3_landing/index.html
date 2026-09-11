@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%23050508'/><path d='M256 64 L400 416 L330 416 L256 240 L182 416 L112 416 Z' fill='%2300f0ff'/><path d='M256 120 L350 390 L330 390 L256 220 L182 390 L162 390 Z' fill='%23ffffff'/><rect x='170' y='300' width='172' height='24' rx='6' fill='%2300f0ff'/></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aetheria Store - Tienda de Juegos RPG & Aventura</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navegación -->
+  <nav class="navbar">
+    <div class="logo">AETHERIA<span>STORE</span></div>
+    <ul class="nav-links">
+      <li><a href="#catalog">Catálogo</a></li>
+      <li><a href="#specs">Requisitos</a></li>
+      <li><a href="#buy" class="btn-nav">Ir al Pago</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="badge">OFERTAS DE TEMPORADA</span>
+      <h1>EXPLORA NUESTRO CATÁLOGO <span>RPG & AVENTURA</span></h1>
+      <p>Descubre mundos épicos, historias inolvidables y batallas legendarias con las mejores ofertas de activación digital.</p>
+      <div class="hero-buttons">
+        <a href="#catalog" class="btn btn-primary">Ver Catálogo</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Catálogo de Juegos -->
+  <section id="catalog" class="catalog">
+    <h2 class="section-title">NUESTROS TÍTULOS DESTACADOS</h2>
+    
+    <!-- Filtros de Categoría -->
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="rpg">RPG</button>
+      <button class="filter-btn" data-filter="adventure">Aventura</button>
+      <button class="filter-btn" data-filter="action">Acción</button>
+    </div>
+
+    <!-- Grid de Juegos -->
+    <div class="games-grid">
+      
+      <!-- Juego 1 -->
+      <div class="game-card" data-category="rpg" data-id="1" data-title="Aetheria Chronicles" data-price="29.99">
+        <div class="card-tag">Bestseller</div>
+        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="Aetheria Chronicles" class="card-img">
+        <div class="card-info">
+          <h3>Aetheria Chronicles</h3>
+          <p class="genre">RPG / Fantasía Oscura</p>
+          <p class="desc">Un RPG de mundo abierto donde cada decisión forja el destino del reino.</p>
+          <div class="card-footer">
+            <span class="game-price">$29.99 USD</span>
+            <button class="btn btn-primary btn-select">Comprar</button>
+          </div>
+        </div>
+      </div>
+<!-- Botón Flotante de WhatsApp -->
+<a href="https://wa.me/1234567890?text=Hola,%20quisiera%20más%20información%20sobre%20los%20juegos" 
+   class="whatsapp-btn" 
+   target="_blank" 
+   rel="noopener noreferrer" 
+   aria-label="Contactar por WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+  </svg>
+  <span>Contactar</span>
+</a>
+
+<style>
+  .whatsapp-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #000000;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    border: 1px solid #333333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    z-index: 9999;
+  }
+
+  .whatsapp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 240, 255, 0.25);
+    border-color: #00f0ff;
+    color: #ffffff;
+  }
+
+  .whatsapp-btn svg {
+    fill: #ffffff;
+  }
+</style>
+      <!-- Juego 2 -->
+      <div class="game-card" data-category="adventure" data-id="2" data-title="Neon Odyssey" data-price="24.99">
+        <div class="card-tag">Nuevo</div>
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Neon Odyssey" class="card-img">
+        <div class="card-info">
+          <h3>Neon Odyssey</h3>
+          <p class="genre">Aventura / Cyberpunk</p>
+          <p class="desc">Infíltrate en megalópolis futuristas y resuelve el misterio del Protocolo Cero.</p>
+          <div class="card-footer">
+            <span class="game-price">$24.99 USD</span>
+            <button class="btn btn-primary btn-select">Comprar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Juego 3 -->
+      <div class="game-card" data-category="action" data-id="3" data-title="Shadow Legacy" data-price="19.99">
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" alt="Shadow Legacy" class="card-img">
+        <div class="card-info">
+          <h3>Shadow Legacy</h3>
+          <p class="genre">Acción / Sigilo</p>
+          <p class="desc">Conviértete en el asesino sombra y domina artes olvidadas en un feudo antiguo.</p>
+          <div class="card-footer">
+            <span class="game-price">$19.99 USD</span>
+            <button class="btn btn-primary btn-select">Comprar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Juego 4 -->
+      <div class="game-card" data-category="rpg" data-id="4" data-title="Valkyrie Realm" data-price="34.99">
+        <div class="card-tag">Oferta</div>
+        <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80" alt="Valkyrie Realm" class="card-img">
+        <div class="card-info">
+          <h3>Valkyrie Realm</h3>
+          <p class="genre">RPG Táctico / Mitología</p>
+          <p class="desc">Comanda escuadrones divinos en combates estratégicos por turnos.</p>
+          <div class="card-footer">
+            <span class="game-price">$34.99 USD</span>
+            <button class="btn btn-primary btn-select">Comprar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Juego 5 -->
+      <div class="game-card" data-category="adventure" data-id="5" data-title="Abyss Expedition" data-price="14.99">
+        <img src="https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=600&q=80" alt="Abyss Expedition" class="card-img">
+        <div class="card-info">
+          <h3>Abyss Expedition</h3>
+          <p class="genre">Aventura / Exploración</p>
+          <p class="desc">Explora ruinas submarinas y descubre criaturas ancestrales en las profundidades.</p>
+          <div class="card-footer">
+            <span class="game-price">$14.99 USD</span>
+            <button class="btn btn-primary btn-select">Comprar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Juego 6 -->
+      <div class="game-card" data-category="action" data-id="6" data-title="Ether Blade" data-price="39.99">
+        <div class="card-tag">Pre-orden</div>
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="Ether Blade" class="card-img">
+        <div class="card-info">
+          <h3>Ether Blade</h3>
+          <p class="genre">Acción / Hack & Slash</p>
+          <p class="desc">Combate frenético de ritmo rápido con espadas de energía y habilidades biomecánicas.</p>
+          <div class="card-footer">
+            <span class="game-price">$39.99 USD</span>
+            <button class="btn btn-primary btn-select">Comprar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Requisitos del Sistema -->
+  <section id="specs" class="specs">
+    <h2 class="section-title">REQUISITOS DEL SISTEMA GENERALES</h2>
+    <div class="specs-tabs">
+      <button class="tab-btn active" data-tab="min">Mínimos</button>
+      <button class="tab-btn" data-tab="rec">Recomendados</button>
+    </div>
+    <div class="specs-content">
+      <div id="tab-min" class="tab-pane active">
+        <ul>
+          <li><strong>SO:</strong> Windows 10 64-bit</li>
+          <li><strong>Procesador:</strong> Intel Core i5-6600k / AMD Ryzen 5 1600</li>
+          <li><strong>Memoria:</strong> 8 GB de RAM</li>
+          <li><strong>Gráficos:</strong> NVIDIA GeForce GTX 1060 / AMD Radeon RX 580</li>
+          <li><strong>Almacenamiento:</strong> 50 GB de espacio disponible</li>
+        </ul>
+      </div>
+      <div id="tab-rec" class="tab-pane">
+        <ul>
+          <li><strong>SO:</strong> Windows 11 64-bit</li>
+          <li><strong>Procesador:</strong> Intel Core i7-10700K / AMD Ryzen 7 3700X</li>
+          <li><strong>Memoria:</strong> 16 GB de RAM</li>
+          <li><strong>Gráficos:</strong> NVIDIA GeForce RTX 3070 / AMD Radeon RX 6700 XT</li>
+          <li><strong>Almacenamiento:</strong> 50 GB en SSD</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Compra (Checkout Dinámico) -->
+  <section id="buy" class="checkout">
+    <div class="checkout-card">
+      <h2>PASARELA DE PAGO</h2>
+      <p class="selected-game-label">Juego seleccionado:</p>
+      <h3 id="selected-game-title">Aetheria Chronicles</h3>
+      <p class="price" id="selected-game-price">$29.99 <span>USD</span></p>
+
+      <ul class="perks">
+        <li>✔ Clave de activación digital instantánea</li>
+        <li>✔ Garantía de reembolso de 14 días</li>
+        <li>✔ Soporte 24/7</li>
+      </ul>
+      
+      <form id="payment-form" class="payment-form">
+        <h3>Pago seguro con Tarjeta</h3>
+        <div class="input-group">
+          <label>Nombre en la tarjeta</label>
+          <input type="text" placeholder="Ej. Juan Pérez" required>
+        </div>
+        <div class="input-group">
+          <label>Número de Tarjeta</label>
+          <input type="text" maxlength="19" placeholder="0000 0000 0000 0000" required>
+        </div>
+        <div class="form-row">
+          <div class="input-group">
+            <label>Expiración</label>
+            <input type="text" placeholder="MM/AA" maxlength="5" required>
+          </div>
+          <div class="input-group">
+            <label>CVC</label>
+            <input type="password" maxlength="4" placeholder="123" required>
+          </div>
+        </div>
+        <button type="submit" id="btn-submit-pay" class="btn btn-primary btn-block">Pagar $29.99 USD</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Aetheria Studios. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
