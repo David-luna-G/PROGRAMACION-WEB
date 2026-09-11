@@ -1,0 +1,283 @@
+/* Variables de Diseño Material Minimalista */
+:root {
+    --md-sys-color-background: #0f1115;
+    --md-sys-color-surface: #ffffff;
+    --md-sys-color-on-surface: #1f1f1f;
+    --md-sys-color-primary: #ff5500;
+    --md-sys-color-primary-container: #ffe8e0;
+    --md-sys-color-outline: #dadce0;
+    --md-sys-color-secondary-text: #5f6368;
+    --md-sys-elevation-3: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.1);
+    --md-shape-corner: 16px;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reseteo y Estilos Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-surface);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 16px;
+}
+
+.container {
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+/* Componente Tarjeta de Identificación */
+.id-card {
+    background-color: var(--md-sys-color-surface);
+    width: 100%;
+    border-radius: var(--md-shape-corner);
+    box-shadow: var(--md-sys-elevation-3);
+    overflow: hidden;
+    border: 1px solid var(--md-sys-color-outline);
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.id-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.2), 0 10px 10px rgba(0,0,0,0.12);
+}
+
+/* Cabecera con la imagen integrada */
+.card-header {
+    height: 110px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.9);
+}
+
+/* Botón de Estado Minimalista */
+.status-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: var(--transition-smooth);
+}
+
+.status-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #34a853;
+}
+
+.status-indicator.inactive {
+    background-color: #ea4335;
+}
+
+.status-text {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+/* Cuerpo de la Tarjeta */
+.card-body {
+    padding: 0 20px 16px 20px;
+    text-align: center;
+    position: relative;
+}
+
+/* Avatar */
+.avatar-container {
+    position: relative;
+    width: 84px;
+    height: 84px;
+    margin: -42px auto 12px auto;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--md-sys-color-surface);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    background-color: var(--md-sys-color-primary-container);
+}
+
+.avatar-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: var(--md-sys-color-primary);
+    color: white;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--md-sys-color-surface);
+}
+
+.avatar-badge .material-icons {
+    font-size: 14px;
+}
+
+/* Información del Usuario */
+.user-info {
+    margin-bottom: 12px;
+}
+
+.user-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--md-sys-color-on-surface);
+    margin-bottom: 2px;
+}
+
+.user-role {
+    font-size: 0.8rem;
+    color: var(--md-sys-color-secondary-text);
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.user-id {
+    font-size: 0.75rem;
+    color: var(--md-sys-color-primary);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Divisor */
+.divider {
+    border: none;
+    height: 1px;
+    background-color: var(--md-sys-color-outline);
+    margin: 12px 0;
+}
+
+/* Cuadrícula de Metadatos */
+.meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.meta-label {
+    font-size: 0.65rem;
+    color: var(--md-sys-color-secondary-text);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.meta-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--md-sys-color-on-surface);
+}
+
+/* Pie de Tarjeta */
+.card-footer {
+    background-color: #fafbfc;
+    padding: 10px 20px;
+    border-top: 1px solid var(--md-sys-color-outline);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.code-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--md-sys-color-secondary-text);
+}
+
+.qr-icon {
+    font-size: 18px;
+}
+
+.code-text {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    color: var(--md-sys-color-primary);
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition-smooth);
+}
+
+.action-btn:hover {
+    background-color: var(--md-sys-color-primary-container);
+}
+
+/* Notificación Toast */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    background-color: #323232;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-smooth);
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    bottom: 32px;
+}
