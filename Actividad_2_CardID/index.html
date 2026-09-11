@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID de Jugador - Forza Horizon 4</title>
+    <!-- Google Fonts & Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+    <main class="container">
+        <!-- Tarjeta de Identificación Minimalista Estilo Forza Horizon 4 -->
+        <div class="id-card" id="idCard">
+            <!-- Cabecera con la imagen temática -->
+            <div class="card-header">
+                <img src="./4d06b92157572e6a929519c7ed1fcc0c.jpg" alt="Forza Horizon 4 Banner" class="header-banner">
+                <button class="status-btn" id="statusBtn" title="Cambiar estado">
+                    <span class="status-indicator active"></span>
+                    <span class="status-text">En Línea</span>
+                </button>
+            </div>
+
+            <!-- Cuerpo de la Tarjeta -->
+            <div class="card-body">
+                <!-- Avatar -->
+                <div class="avatar-container">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=DavidLuna" alt="Avatar Personal" class="avatar">
+                    <div class="avatar-badge">
+                        <span class="material-icons">sports_motorsports</span>
+                    </div>
+                </div>
+
+                <!-- Datos Personales -->
+                <div class="user-info">
+                    <h1 class="user-name">David Luna García</h1>
+                    <p class="user-role">Piloto Élite &bull; Club FH4</p>
+                    <p class="user-id">TAG: <span id="userId">LUNA_FH4</span></p>
+                </div>
+
+                <!-- Divisor Minimalista -->
+                <hr class="divider">
+
+                <!-- Detalles / Metadatos -->
+                <div class="meta-grid">
+                    <div class="meta-item">
+                        <span class="meta-label">Nivel de Credencial</span>
+                        <span class="meta-value">Estrella 3</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Salón de la Fama</span>
+                        <span class="meta-value">Top 1%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pie de Tarjeta / Acciones -->
+            <div class="card-footer">
+                <div class="code-container">
+                    <span class="material-icons qr-icon">qr_code_2</span>
+                    <span class="code-text">Licencia Verificada</span>
+                </div>
+                <button class="action-btn" id="shareBtn" aria-label="Copiar ID" title="Copiar Tag">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Notificación Toast -->
+        <div class="toast" id="toast">Tag copiado al portapapeles</div>
+    </main>
+
+    <!-- Script -->
+    <script src="./script.js"></script>
+</body>
+</html>
