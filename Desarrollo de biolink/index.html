@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Primary Meta Tags -->
+  <title>Nexus Tech Solutions | Arquitectura Frontend & Consultoría Enterprise</title>
+  <meta name="title" content="Nexus Tech Solutions | Arquitectura Frontend & Consultoría Enterprise">
+  <meta name="description" content="Servicios profesionales de arquitectura de software, design systems y consultoría técnica por Alex Mercer, Lead Software Architect.">
+  <meta name="keywords" content="Nexus Tech Solutions, Alex Mercer, Arquitectura Frontend, Design Systems, Consultoría Tech, Accesibilidad Web, Software Enterprise">
+  <meta name="author" content="Nexus Tech Solutions">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://nexustech.io/servicios">
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nexustech.io/servicios">
+  <meta property="og:title" content="Nexus Tech Solutions | Ingeniería & Consultoría Software">
+  <meta property="og:description" content="Transformamos sistemas complejos en arquitecturas escalables, accesibles y de alto rendimiento.">
+  <meta property="og:image" content="https://nexustech.io/og-services.jpg">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://nexustech.io/servicios/#webpage",
+        "url": "https://nexustech.io/servicios",
+        "name": "Servicios Profesionales de Consultoría Tech - Nexus Solutions",
+        "description": "Servicios de arquitectura web, auditorías de software y sistemas de diseño enterprise.",
+        "inLanguage": "es"
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://nexustech.io/servicios/#service",
+        "name": "Nexus Tech Solutions",
+        "priceRange": "$$$",
+        "knowsAbout": ["Enterprise Architecture", "UI/UX Design Systems", "Web Accessibility", "Performance Optimization"]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos Personalizados -->
+  <link rel="stylesheet" href="styles.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            quest: {
+              bg: '#0f172a',
+              card: '#1e293b',
+              border: '#334155'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-full flex flex-col items-center justify-start p-2 sm:p-6 antialiased selection:bg-slate-700 selection:text-white">
+
+  <!-- ENLACE DE ACCESIBILIDAD PARA SALTAR DIRECTO AL CONTENIDO -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <!-- ENCABEZADO SUPERIOR / BARRA DE HERRAMIENTAS -->
+  <header class="w-full max-w-xl mb-4 bg-slate-900 border border-slate-800 rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md text-xs" role="banner">
+    <div class="flex items-center space-x-2">
+      <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-800 text-slate-200 border border-slate-700" aria-hidden="true">
+        <i data-lucide="zap" class="w-4 h-4 text-slate-300"></i>
+      </span>
+      <div>
+        <h1 class="font-bold text-slate-100 text-sm leading-tight">Nexus Tech — Consultoría & Ingeniería</h1>
+        <p class="text-[11px] text-slate-400">Dirigido por Alex Mercer, Lead Software Architect</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-1.5 w-full sm:w-auto justify-end">
+      <button id="btnViewApp" onclick="switchMainView('preview')" aria-pressed="true" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-900 font-semibold hover:bg-white transition flex items-center gap-1">
+        <i data-lucide="eye" class="w-3.5 h-3.5" aria-hidden="true"></i>
+        <span>Vista Oferta</span>
+      </button>
+
+      <button id="btnViewCode" onclick="switchMainView('code')" aria-pressed="false" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 font-medium hover:bg-slate-700 border border-slate-700 transition flex items-center gap-1">
+        <i data-lucide="code-2" class="w-3.5 h-3.5 text-slate-400" aria-hidden="true"></i>
+        <span>Ver Código</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL VISTA EN VIVO -->
+  <div id="previewContainer" class="w-full max-w-md transition-all duration-300">
+    
+    <!-- BARRA DE URGENCIA / OFERTA -->
+    <aside class="w-full mb-3 bg-slate-900 border border-slate-800 rounded-lg p-2.5 flex items-center justify-between text-xs text-slate-300" aria-label="Disponibilidad de servicios">
+      <div class="flex items-center gap-1.5">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span>Disponibilidad Q3/Q4:</span>
+      </div>
+      <div class="font-semibold flex items-center gap-1">
+        <span class="bg-slate-800 border border-slate-700 px-2.5 py-0.5 rounded text-[11px] text-slate-200">
+          🔥 ÚLTIMOS 2 CUPOS
+        </span>
+      </div>
+    </aside>
+
+    <!-- DISPOSITIVO MÓVIL PRINCIPAL -->
+    <main id="main-content" class="w-full bg-quest-bg border border-slate-800 rounded-[2rem] shadow-xl overflow-hidden flex flex-col relative min-h-[760px] transition-all duration-300 mb-8" tabindex="-1">
+      
+      <!-- BARRA DE ESTADO SIMULADA -->
+      <div class="w-full px-6 pt-3 pb-1 flex items-center justify-between text-[11px] text-slate-400 select-none z-20" aria-hidden="true">
+        <span class="font-semibold text-slate-300">09:41</span>
+        <div class="w-20 h-4 bg-slate-900 rounded-full mx-auto -mt-1 flex items-center justify-center border border-slate-800">
+          <div class="w-2 h-2 rounded-full bg-slate-950"></div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <i data-lucide="signal" class="w-3 h-3"></i>
+          <i data-lucide="wifi" class="w-3 h-3"></i>
+          <i data-lucide="battery" class="w-3.5 h-3.5"></i>
+        </div>
+      </div>
+
+      <!-- BANNER MODO BLUEPRINT -->
+      <div id="wfBanner" class="hidden bg-slate-800 border-b border-slate-700 px-4 py-1.5 text-[11px] text-slate-200 font-mono flex justify-between items-center" aria-live="polite">
+        <span>📐 MODO BLUEPRINT (Alto Contraste)</span>
+        <button onclick="toggleMode()" class="underline font-bold">Volver a Modo Estándar</button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto px-4 pt-2 pb-24 space-y-4">
+
+        <!-- 1. HERO SALES SECTION: PROPUESTA DE VALOR -->
+        <section class="rpg-card rounded-xl p-5 text-center relative overflow-hidden" aria-labelledby="hero-heading">
+          <div class="inline-flex items-center gap-1 bg-slate-800 border border-slate-700 px-2.5 py-1 rounded-full text-[10px] text-slate-300 font-bold uppercase tracking-wider mb-3">
+            <i data-lucide="shield-check" class="w-3 h-3 text-slate-200"></i> Estándar Enterprise & WCAG 2.1
+          </div>
+
+          <h2 id="hero-heading" class="font-heading font-extrabold text-lg text-slate-100 leading-tight mb-2 wf-text-dark">
+            Ingeniería de Software de Alto Rendimiento
+          </h2>
+
+          <p class="text-xs text-slate-300 leading-relaxed mb-4 wf-text-dark">
+            Diseñamos e implementamos arquitecturas frontend escalables, accesibles y optimizadas para productos digitales de alta exigencia.
+          </p>
+
+          <a href="#solicitar" onclick="openModal('proposalRequest')" class="block w-full py-3 bg-slate-100 hover:bg-white text-slate-950 font-extrabold text-xs rounded-xl shadow-lg transition transform active:scale-95 text-center uppercase tracking-wide">
+            Solicitar Propuesta Técnica
+          </a>
+
+          <div class="grid grid-cols-3 gap-1 mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-400">
+            <div><strong class="block text-slate-100 text-xs font-mono">&lt;100ms</strong> LCP Objetivo</div>
+            <div><strong class="block text-slate-100 text-xs font-mono">100%</strong> WCAG 2.1 AA</div>
+            <div><strong class="block text-slate-100 text-xs font-mono">+40%</strong> Eficiencia</div>
+          </div>
+        </section>
+
+        <!-- 2. PRUEBA SOCIAL / SOCIAL PROOF -->
+        <section class="space-y-2" aria-labelledby="proof-heading">
+          <div class="flex items-center justify-between px-1">
+            <h2 id="proof-heading" class="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 wf-text-dark">
+              <i data-lucide="award" class="w-3.5 h-3.5 text-slate-400" aria-hidden="true"></i>
+              Métricas de Impacto Enterprise
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-3">
+              <div class="flex items-center text-slate-100 font-bold text-sm mb-1">
+                <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> +65%
+              </div>
+              <p class="text-[10px] text-slate-400 leading-tight">Optimización de carga en plataformas SaaS de alto tráfico.</p>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-3">
+              <div class="flex items-center text-slate-100 font-bold text-sm mb-1">
+                <i data-lucide="check-circle-2" class="w-4 h-4 mr-1"></i> 100%
+              </div>
+              <p class="text-[10px] text-slate-400 leading-tight">Cumplimiento de estándares de accesibilidad y normativa internacional.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. PAQUETES Y SERVICIOS EN CUADRÍCULA 2 x 2 -->
+        <section class="space-y-2" aria-labelledby="pricing-heading">
+          <div class="flex items-center justify-between px-1">
+            <h2 id="pricing-heading" class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 wf-text-dark">
+              <i data-lucide="briefcase" class="w-3.5 h-3.5 text-slate-400" aria-hidden="true"></i>
+              Servicios Especializados
+            </h2>
+            <span class="text-[10px] bg-slate-800 text-slate-300 border border-slate-700 px-1.5 py-0.5 rounded font-mono">B2B / SaaS</span>
+          </div>
+
+          <!-- Malla 2x2 para las cards principales -->
+          <div class="grid grid-cols-2 gap-2.5">
+            
+            <!-- Card 1: Auditoría -->
+            <article class="rpg-card rounded-xl p-3 border border-slate-800 hover:border-slate-600 transition flex flex-col justify-between h-full">
+              <div>
+                <div class="flex justify-between items-start mb-1.5">
+                  <span class="text-[8px] font-bold bg-slate-800 text-slate-300 px-1 py-0.5 rounded border border-slate-700 uppercase">Diagnóstico</span>
+                  <span class="font-mono text-xs font-bold text-slate-100">$499</span>
+                </div>
+                <h3 class="font-bold text-xs text-slate-100 mb-1 wf-text-dark">Auditoría de Software</h3>
+                <p class="text-[10px] text-slate-400 leading-tight mb-3 wf-text-dark">Análisis técnico de código, seguridad y WCAG en 48h.</p>
+              </div>
+              <button onclick="openCheckout('Auditoría de Software & Frontend', '499')" class="w-full py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-[10px] rounded-lg border border-slate-700 transition flex items-center justify-center gap-1">
+                <span>Contratar</span>
+              </button>
+            </article>
+
+            <!-- Card 2: Design System (Destacado) -->
+            <article class="rpg-card-gold rounded-xl p-3 border border-slate-600 transition flex flex-col justify-between h-full relative overflow-hidden">
+              <div>
+                <div class="flex justify-between items-start mb-1.5">
+                  <span class="text-[8px] font-bold bg-slate-100 text-slate-950 px-1 py-0.5 rounded uppercase">Recomendado</span>
+                  <span class="font-mono text-xs font-bold text-slate-100">$2,499</span>
+                </div>
+                <h3 class="font-bold text-xs text-slate-100 mb-1 wf-text-dark">Enterprise Design System</h3>
+                <p class="text-[10px] text-slate-300 leading-tight mb-3 wf-text-dark">UI/UX en Figma y biblioteca modular lista para producción.</p>
+              </div>
+              <button onclick="openCheckout('Enterprise Design System', '2499')" class="w-full py-1.5 bg-slate-100 hover:bg-white text-slate-950 font-extrabold text-[10px] rounded-lg transition flex items-center justify-center gap-1 shadow">
+                <span>Reservar</span>
+              </button>
+            </article>
+
+            <!-- Card 3: Mentoría/Consultoría 1-on-1 -->
+            <article class="rpg-card rounded-xl p-3 border border-slate-800 hover:border-slate-600 transition flex flex-col justify-between h-full">
+              <div>
+                <div class="flex justify-between items-start mb-1.5">
+                  <span class="text-[8px] font-bold bg-slate-800 text-slate-300 px-1 py-0.5 rounded border border-slate-700 uppercase">Consultoría</span>
+                  <span class="font-mono text-xs font-bold text-slate-100">$180/h</span>
+                </div>
+                <h3 class="font-bold text-xs text-slate-100 mb-1 wf-text-dark">Consultoría de Arquitectura</h3>
+                <p class="text-[10px] text-slate-400 leading-tight mb-3 wf-text-dark">Sesión estratégica 1-a-1 sobre infraestructura frontend.</p>
+              </div>
+              <button onclick="openCheckout('Consultoría de Arquitectura Tech', '180')" class="w-full py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-[10px] rounded-lg border border-slate-700 transition flex items-center justify-center gap-1">
+                <span>Agendar</span>
+              </button>
+            </article>
+
+            <!-- Card 4: Kit Digital / Starter Kit -->
+            <article class="rpg-card rounded-xl p-3 border border-slate-800 hover:border-slate-600 transition flex flex-col justify-between h-full">
+              <div>
+                <div class="flex justify-between items-start mb-1.5">
+                  <span class="text-[8px] font-bold bg-slate-800 text-slate-300 px-1 py-0.5 rounded border border-slate-700 uppercase">Recurso</span>
+                  <span class="font-mono text-xs font-bold text-slate-100">$99</span>
+                </div>
+                <h3 class="font-bold text-xs text-slate-100 mb-1 wf-text-dark">Enterprise Web Boilerplate</h3>
+                <p class="text-[10px] text-slate-400 leading-tight mb-3 wf-text-dark">Kit base de código optimizado con accesibilidad nativa.</p>
+              </div>
+              <button onclick="openCheckout('Enterprise Web Boilerplate', '99')" class="w-full py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-[10px] rounded-lg border border-slate-700 transition flex items-center justify-center gap-1">
+                <span>Comprar</span>
+              </button>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- 4. PREGUNTAS FRECUENTES (FAQ / TRUST) -->
+        <section class="rpg-card rounded-xl p-4 space-y-3" aria-labelledby="faq-heading">
+          <h2 id="faq-heading" class="font-heading font-bold text-xs text-slate-100 wf-text-dark flex items-center gap-2">
+            <i data-lucide="help-circle" class="w-4 h-4 text-slate-400"></i> Preguntas Frecuentes
+          </h2>
+
+          <div class="space-y-2 text-xs">
+            <details class="bg-slate-900 border border-slate-800 rounded-lg p-2.5 cursor-pointer">
+              <summary class="font-bold text-slate-200">¿Cómo se formaliza la contratación?</summary>
+              <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed">Emitimos contrato formal de servicios con acuerdo de confidencialidad (NDA) y fechas fijas de entrega tras una sesión inicial de Kickoff.</p>
+            </details>
+
+            <details class="bg-slate-900 border border-slate-800 rounded-lg p-2.5 cursor-pointer">
+              <summary class="font-bold text-slate-200">¿Qué soporte ofrecen tras el despliegue?</summary>
+              <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed">Todos los proyectos de ingeniería incluyen 30 días de garantía y soporte de integración técnica sin costo adicional.</p>
+            </details>
+          </div>
+        </section>
+
+        <!-- FOOTER / CONTACTO -->
+        <footer class="rpg-card rounded-xl p-4 text-center space-y-3" role="contentinfo">
+          <p class="text-xs text-slate-400 font-mono wf-text-dark">
+            Nexus Tech Solutions &copy; 2026. High-Performance Software Engineering.
+          </p>
+          <div class="flex items-center justify-center gap-2.5 text-slate-400">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="Perfil de GitHub" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-white transition">
+              <i data-lucide="github" class="w-4 h-4" aria-hidden="true"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Perfil de LinkedIn" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-white transition">
+              <i data-lucide="linkedin" class="w-4 h-4" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:contacto@nexustech.io" aria-label="Enviar Email" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-white transition">
+              <i data-lucide="mail" class="w-4 h-4" aria-hidden="true"></i>
+            </a>
+          </div>
+        </footer>
+
+      </div>
+
+      <!-- BARRA DE NAVEGACIÓN Y COMPRA RÁPIDA -->
+      <nav class="absolute bottom-0 left-0 right-0 bg-slate-950 border-t border-slate-800 px-4 py-2.5 flex items-center justify-between z-30" aria-label="Navegación de conversión">
+        <div class="flex flex-col">
+          <span class="text-[9px] text-slate-400 uppercase tracking-wider font-bold">Atención Comercial</span>
+          <span class="text-xs font-bold text-slate-100">Nexus Tech Solutions</span>
+        </div>
+        <button onclick="openModal('proposalRequest')" class="px-4 py-2 bg-slate-100 hover:bg-white text-slate-950 font-extrabold text-xs rounded-lg transition flex items-center gap-1.5 shadow">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          <span>Contacto</span>
+        </button>
+      </nav>
+    </main>
+  </div>
+
+  <!-- INSPECTOR DE CÓDIGO -->
+  <div id="codeContainer" class="w-full max-w-xl hidden space-y-4 transition-all duration-300" role="region" aria-label="Visor de código fuente">
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h2 class="font-bold text-slate-100 text-sm flex items-center gap-2">
+            <i data-lucide="file-code-2" class="w-4 h-4 text-slate-300" aria-hidden="true"></i>
+            Código Fuente Landing Page
+          </h2>
+          <p class="text-xs text-slate-400">Página optimizada para ventas B2B y conversiones enterprise</p>
+        </div>
+        <button onclick="switchMainView('preview')" class="text-xs text-slate-300 hover:underline">Volver a Vista Previa</button>
+      </div>
+
+      <div class="flex border-b border-slate-800 gap-2" role="tablist">
+        <button id="tabHtml" role="tab" aria-selected="true" onclick="switchCodeTab('html')" class="px-3 py-1.5 text-xs font-semibold text-slate-100 border-b-2 border-white transition-colors bg-slate-800">
+          index.html
+        </button>
+        <button id="tabCss" role="tab" aria-selected="false" onclick="switchCodeTab('css')" class="px-3 py-1.5 text-xs font-semibold text-slate-400 border-b-2 border-transparent hover:text-slate-200 transition-colors">
+          styles.css
+        </button>
+        <button id="tabJs" role="tab" aria-selected="false" onclick="switchCodeTab('js')" class="px-3 py-1.5 text-xs font-semibold text-slate-400 border-b-2 border-transparent hover:text-slate-200 transition-colors">
+          script.js
+        </button>
+      </div>
+
+      <div class="relative">
+        <pre class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-[11px] font-mono text-slate-300 overflow-x-auto max-h-[480px] leading-relaxed"><code id="codeBlock"></code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALES -->
+  <div id="modalOverlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-t-2xl sm:rounded-xl p-5 shadow-2xl relative space-y-4">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg" aria-label="Cerrar ventana modal">
+        <i data-lucide="x" class="w-4 h-4" aria-hidden="true"></i>
+      </button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- NOTIFICACIONES TOAST -->
+  <div id="toast" role="status" aria-live="polite" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-100 text-slate-900 text-xs font-bold px-4 py-2.5 rounded-lg shadow-xl border border-slate-300 flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 z-50 pointer-events-none">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-slate-800" aria-hidden="true"></i>
+    <span id="toastMsg">Acción registrada</span>
+  </div>
+
+  <!-- JavaScript Principal -->
+  <script src="script.js"></script>
+</body>
+</html>
