@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tres en Raya - Refactorizado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <main class="app-container">
+    <header class="header">
+      <h1 class="header__title">Tres en Raya</h1>
+      <p class="header__subtitle">Desafío Tic-Tac-Toe</p>
+    </header>
+
+    <!-- Estado y Turno del Juego -->
+    <section class="game-status" aria-live="polite">
+      <div class="turn-indicator" id="statusContainer">
+        <span class="turn-indicator__label" id="statusLabel">Turno actual:</span>
+        <span class="turn-indicator__badge turn-indicator__badge--x" id="statusBadge">X</span>
+      </div>
+    </section>
+
+    <!-- Tablero 3x3 -->
+    <section class="board-container">
+      <div class="board" id="board" role="grid" aria-label="Tablero de Tres en Raya">
+        <button class="cell" data-cell-index="0" aria-label="Casilla 1" role="gridcell"></button>
+        <button class="cell" data-cell-index="1" aria-label="Casilla 2" role="gridcell"></button>
+        <button class="cell" data-cell-index="2" aria-label="Casilla 3" role="gridcell"></button>
+
+        <button class="cell" data-cell-index="3" aria-label="Casilla 4" role="gridcell"></button>
+        <button class="cell" data-cell-index="4" aria-label="Casilla 5" role="gridcell"></button>
+        <button class="cell" data-cell-index="5" aria-label="Casilla 6" role="gridcell"></button>
+
+        <button class="cell" data-cell-index="6" aria-label="Casilla 7" role="gridcell"></button>
+        <button class="cell" data-cell-index="7" aria-label="Casilla 8" role="gridcell"></button>
+        <button class="cell" data-cell-index="8" aria-label="Casilla 9" role="gridcell"></button>
+      </div>
+    </section>
+
+    <!-- Marcador de Puntuación -->
+    <section class="scoreboard">
+      <div class="score-card score-card--x">
+        <span class="score-card__player">Jugador X</span>
+        <span class="score-card__points" id="scoreX">0</span>
+      </div>
+      <div class="score-card score-card--ties">
+        <span class="score-card__player">Empates</span>
+        <span class="score-card__points" id="scoreTies">0</span>
+      </div>
+      <div class="score-card score-card--o">
+        <span class="score-card__player">Jugador O</span>
+        <span class="score-card__points" id="scoreO">0</span>
+      </div>
+    </section>
+
+    <!-- Control de Reinicio -->
+    <div class="actions">
+      <button class="btn btn--primary" id="resetBtn" aria-label="Reiniciar Partida">
+        <svg class="btn__icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+          <path d="M23 4v6h-6"></path>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+        </svg>
+        Reiniciar Partida
+      </button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

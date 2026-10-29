@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaDaTec - Hardware & Componentes</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%230b0f19'/><g stroke='%2300d8ff' stroke-width='16' fill='none' stroke-linecap='round' stroke-linejoin='round'><ellipse cx='256' cy='256' rx='180' ry='70'/><ellipse cx='256' cy='256' rx='180' ry='70' transform='rotate(60 256 256)'/><ellipse cx='256' cy='256' rx='180' ry='70' transform='rotate(120 256 256)'/></g><g stroke='%2300d8ff' stroke-width='12'><line x1='216' y1='160' x2='216' y2='180'/><line x1='256' y1='160' x2='256' y2='180'/><line x1='296' y1='160' x2='296' y2='180'/><line x1='216' y1='332' x2='216' y2='352'/><line x1='256' y1='332' x2='256' y2='352'/><line x1='296' y1='332' x2='296' y2='352'/><line x1='160' y1='216' x2='180' y2='216'/><line x1='160' y1='256' x2='180' y2='256'/><line x1='160' y1='296' x2='180' y2='296'/><line x1='332' y1='216' x2='352' y2='216'/><line x1='332' y1='256' x2='352' y2='256'/><line x1='332' y1='296' x2='352' y2='296'/></g><rect x='180' y='180' width='152' height='152' rx='24' fill='%230b0f19' stroke='%2300d8ff' stroke-width='16'/><path d='M210 290 V222 L256 268 L302 222 V290' fill='none' stroke='%23ffffff' stroke-width='22' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        custom: {
+                            bg: '#131313',
+                            card: '#2B2B2B',
+                            subtle: '#1f1f1f',
+                            muted: '#86868B',
+                            accent: '#1561F0',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #86868B;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1561F0;
+        }
+    </style>
+</head>
+<body class="bg-custom-bg text-white font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-custom-accent selection:text-white">
+
+    <!-- HEADER NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-[#131313]/95 backdrop-blur-md border-b border-[#86868B]/30 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="switchView('store')">
+                <div class="w-10 h-10 rounded-xl bg-custom-card text-white border border-[#86868B]/30 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-laptop text-sm text-custom-accent"></i>
+                </div>
+                <div>
+                    <span class="text-lg font-bold tracking-tight text-white">MaDaTech</span>
+                    <p class="text-[10px] text-custom-muted tracking-wider uppercase font-medium">Hardware & Accesorios</p>
+                </div>
+            </div>
+
+            <div class="hidden md:flex flex-1 max-w-md mx-8">
+                <div class="relative w-full">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-custom-muted">
+                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    </span>
+                    <input type="text" id="headerSearch" oninput="handleSearch(this.value)" placeholder="Buscar RAM, procesadores, accesorios..." class="w-full pl-10 pr-4 py-2.5 bg-custom-card border border-[#86868B]/30 rounded-xl text-xs text-white focus:outline-none focus:border-custom-accent transition-all placeholder:text-custom-muted shadow-xs">
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-4">
+                <button onclick="switchView('store')" class="hidden sm:inline-flex text-xs font-semibold text-custom-muted hover:text-white px-3 py-2 rounded-lg transition-colors">TIENDA</button>
+                <button onclick="switchView('valueProp')" class="hidden sm:inline-flex text-xs font-semibold text-custom-muted hover:text-white px-3 py-2 rounded-lg transition-colors">MODELO DE NEGOCIO</button>
+                
+                <button onclick="toggleCartModal(true)" class="relative p-2.5 rounded-xl bg-custom-card hover:bg-custom-subtle text-white transition-all flex items-center justify-center border border-[#86868B]/30 shadow-xs" title="Ver carrito">
+                    <i class="fa-solid fa-cart-shopping text-sm"></i>
+                    <span id="cartBadge" class="absolute -top-1 -right-1 bg-custom-accent text-white border border-[#131313] text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs">0</span>
+                </button>
+
+                <button onclick="openAuthModal()" class="flex items-center gap-2 bg-custom-card hover:bg-custom-subtle text-white border border-[#86868B]/30 px-4 py-2.5 rounded-xl text-xs font-semibold shadow-xs transition-all">
+                    <i class="fa-regular fa-user"></i>
+                    <span class="hidden sm:inline" id="userAccountBtnText">CUENTA</span>
+                </button>
+            </div>
+        </div>
+        <div class="md:hidden px-4 pb-3">
+            <div class="relative w-full">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-custom-muted">
+                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                </span>
+                <input type="text" id="mobileSearch" oninput="handleSearch(this.value)" placeholder="Buscar componentes o accesorios..." class="w-full pl-10 pr-4 py-2 bg-custom-card border border-[#86868B]/30 rounded-xl text-xs text-white focus:outline-none focus:border-custom-accent shadow-xs">
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- VIEW: STORE & LANDING -->
+        <div id="storeView" class="space-y-12 pb-16">
+            <section class="bg-custom-bg py-16 lg:py-20 border-b border-[#86868B]/20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-custom-card text-custom-muted border border-[#86868B]/30 shadow-xs">
+                            <i class="fa-solid fa-circle-check text-xs text-custom-accent"></i> Centralizado y accesible
+                        </span>
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white">
+                            Todo para tu computadora en un solo lugar.
+                        </h1>
+                        <p class="text-custom-muted max-w-lg text-sm sm:text-base leading-relaxed">
+                            Simplificamos la búsqueda y adquisición de componentes, repuestos y accesorios de computación con una experiencia limpia, uniforme y organizada.
+                        </p>
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <button onclick="scrollToCatalog()" class="bg-custom-accent hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl shadow-xs transition-all flex items-center gap-2 text-xs">
+                                <i class="fa-solid fa-store"></i> EXPLORAR CATÁLOGO
+                            </button>
+                            <button onclick="switchView('valueProp')" class="bg-custom-card hover:bg-custom-subtle text-white font-semibold px-6 py-3 rounded-xl border border-[#86868B]/30 transition-all text-xs shadow-xs">
+                                CONOCE EL PROYECTO
+                            </button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-custom-card border border-[#86868B]/30 p-6 rounded-2xl flex flex-col justify-between shadow-xs hover:border-custom-accent transition-all">
+                            <div class="w-10 h-10 rounded-xl bg-custom-subtle text-custom-accent flex items-center justify-center mb-4 text-base shadow-xs border border-[#86868B]/30">
+                                <i class="fa-solid fa-microchip"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-xs">Componentes y Repuestos</h3>
+                                <p class="text-[11px] text-custom-muted mt-1">Memorias RAM, SSDs, procesadores y fuentes de poder.</p>
+                            </div>
+                        </div>
+                        <div class="bg-custom-card border border-[#86868B]/30 p-6 rounded-2xl flex flex-col justify-between shadow-xs hover:border-custom-accent transition-all mt-6">
+                            <div class="w-10 h-10 rounded-xl bg-custom-subtle text-custom-accent flex items-center justify-center mb-4 text-base shadow-xs border border-[#86868B]/30">
+                                <i class="fa-solid fa-headphones"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-xs">Accesorios y Periféricos</h3>
+                                <p class="text-[11px] text-custom-muted mt-1">Teclados, mouse ergonómicos, fundas y cables.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="catalogSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                    <div>
+                        <span class="text-custom-muted text-xs uppercase tracking-wider font-semibold">CATÁLOGO EN LÍNEA</span>
+                        <h2 class="text-2xl font-bold text-white mt-1">Productos recomendados</h2>
+                    </div>
+                    <div id="categoryFilters" class="flex flex-wrap items-center gap-2">
+                        <button onclick="filterCategory('all')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-custom-accent text-white border border-custom-accent shadow-xs transition-all">TODOS</button>
+                        <button onclick="openCompatibilityFilterModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-custom-card hover:bg-custom-subtle text-custom-accent border border-custom-accent/60 shadow-xs transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-filter"></i> FILTROS POR MODELO (15)
+                        </button>
+                        <button onclick="filterCategory('Componentes')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-custom-card text-custom-muted hover:text-white border border-[#86868B]/30 transition-all shadow-xs">COMPONENTES</button>
+                        <button onclick="filterCategory('Repuestos')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-custom-card text-custom-muted hover:text-white border border-[#86868B]/30 transition-all shadow-xs">REPUESTOS</button>
+                        <button onclick="filterCategory('Accesorios')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-custom-card text-custom-muted hover:text-white border border-[#86868B]/30 transition-all shadow-xs">ACCESORIOS</button>
+                        <button onclick="filterCategory('Periféricos')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-custom-card text-custom-muted hover:text-white border border-[#86868B]/30 transition-all shadow-xs">PERIFÉRICOS</button>
+                    </div>
+                </div>
+
+                <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+                <div id="emptyState" class="hidden text-center py-16 bg-custom-card rounded-2xl border border-[#86868B]/30 shadow-xs mt-4">
+                    <div class="w-12 h-12 bg-custom-subtle text-custom-muted rounded-full flex items-center justify-center mx-auto mb-3 text-lg border border-[#86868B]/30">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+                    <h3 class="text-sm font-bold text-white">No se encontraron productos</h3>
+                    <p class="text-xs text-custom-muted mt-1">Intenta ajustando tu búsqueda o cambiando de categoría.</p>
+                    <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-custom-accent text-white text-xs font-semibold rounded-xl border border-custom-accent">VER TODOS</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW: VALUE PROP -->
+        <div id="valuePropView" class="hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+            <div class="text-center space-y-3">
+                <span class="text-custom-muted text-xs uppercase tracking-wider font-semibold">MODELO DE NEGOCIO E-COMMERCE</span>
+                <h1 class="text-3xl font-bold text-white">¿Cómo funciona MaDaTec?</h1>
+                <p class="text-custom-muted max-w-xl mx-auto text-sm">Resumen estructurado de nuestra propuesta de valor orientada a resolver la dispersión de componentes informáticos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-custom-card p-6 rounded-2xl border border-[#86868B]/30 shadow-xs space-y-3">
+                    <div class="w-10 h-10 bg-custom-subtle text-custom-accent rounded-xl flex items-center justify-center text-sm font-bold border border-[#86868B]/30"><i class="fa-solid fa-star"></i></div>
+                    <h3 class="font-bold text-white text-sm">1. Propuesta de Valor</h3>
+                    <p class="text-custom-muted text-xs leading-relaxed">Centraliza componentes, repuestos y accesorios para computadoras en un solo lugar.</p>
+                </div>
+                <div class="bg-custom-card p-6 rounded-2xl border border-[#86868B]/30 shadow-xs space-y-3">
+                    <div class="w-10 h-10 bg-custom-subtle text-custom-accent rounded-xl flex items-center justify-center text-sm font-bold border border-[#86868B]/30"><i class="fa-solid fa-users"></i></div>
+                    <h3 class="font-bold text-white text-sm">2. Mercado Meta</h3>
+                    <p class="text-custom-muted text-xs leading-relaxed">Estudiantes, profesionales y público general que necesitan actualizar o reparar equipos.</p>
+                </div>
+                <div class="bg-custom-card p-6 rounded-2xl border border-[#86868B]/30 shadow-xs space-y-3">
+                    <div class="w-10 h-10 bg-custom-subtle text-custom-accent rounded-xl flex items-center justify-center text-sm font-bold border border-[#86868B]/30"><i class="fa-solid fa-laptop"></i></div>
+                    <h3 class="font-bold text-white text-sm">3. Canal Principal</h3>
+                    <p class="text-custom-muted text-xs leading-relaxed">Plataforma web de comercio electrónico con búsqueda avanzada y carrito de compras ágil.</p>
+                </div>
+                <div class="bg-custom-card p-6 rounded-2xl border border-[#86868B]/30 shadow-xs space-y-3">
+                    <div class="w-10 h-10 bg-custom-subtle text-custom-accent rounded-xl flex items-center justify-center text-sm font-bold border border-[#86868B]/30"><i class="fa-solid fa-wallet"></i></div>
+                    <h3 class="font-bold text-white text-sm">4. Fuente de Ingresos</h3>
+                    <p class="text-custom-muted text-xs leading-relaxed">Venta directa en línea de componentes, repuestos garantizados y periféricos cotidianos.</p>
+                </div>
+            </div>
+
+            <div class="text-center pt-2">
+                <button onclick="switchView('store')" class="bg-custom-accent hover:bg-blue-600 text-white border border-custom-accent font-semibold px-8 py-3 rounded-xl shadow-xs transition-all text-xs">VOLVER A LA TIENDA</button>
+            </div>
+        </div>
+
+        <!-- VIEW: PRODUCT DETAIL -->
+        <div id="detailView" class="hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <button onclick="switchView('store')" class="inline-flex items-center gap-2 text-xs font-semibold text-custom-muted hover:text-white mb-6 transition-colors">
+                <i class="fa-solid fa-arrow-left"></i> Volver al catálogo
+            </button>
+            <div id="productDetailContent" class="bg-custom-card rounded-3xl border border-[#86868B]/30 shadow-xs p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-8"></div>
+        </div>
+    </main>
+
+    <!-- CART MODAL -->
+    <div id="cartModal" onclick="handleBackdropClick(event, 'cartModal')" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs hidden flex justify-end transition-all">
+        <div class="w-full max-w-md bg-custom-card border-l border-[#86868B]/30 h-full shadow-2xl flex flex-col justify-between" onclick="event.stopPropagation()">
+            <div class="p-6 border-b border-[#86868B]/30 flex items-center justify-between bg-custom-bg">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-cart-shopping text-white text-base"></i>
+                    <h2 class="text-sm font-bold text-white">Carrito de Compras</h2>
+                </div>
+                <button onclick="toggleCartModal(false)" class="w-8 h-8 rounded-xl bg-custom-card border border-[#86868B]/30 text-custom-muted hover:text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+            <div id="cartItemsList" class="flex-grow overflow-y-auto p-6 space-y-4 divide-y divide-[#86868B]/20"></div>
+            <div class="p-6 border-t border-[#86868B]/30 bg-custom-bg space-y-4">
+                <div class="flex justify-between items-center text-xs font-semibold text-custom-muted">
+                    <span>Subtotal:</span>
+                    <span id="cartSubtotal" class="text-white text-base font-bold">$0.00</span>
+                </div>
+                <button onclick="checkoutCart()" class="w-full bg-custom-accent hover:bg-blue-600 text-white border border-custom-accent font-semibold py-3 rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 text-xs">
+                    <i class="fa-solid fa-bag-shopping"></i> Proceder al Pago
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUTH MODAL -->
+    <div id="authModal" onclick="handleBackdropClick(event, 'authModal')" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-sm bg-custom-card border border-[#86868B]/30 rounded-3xl shadow-xl p-8 relative" onclick="event.stopPropagation()">
+            <button onclick="closeAuthModal()" class="absolute top-6 right-6 w-8 h-8 rounded-xl bg-custom-subtle border border-[#86868B]/30 text-custom-muted hover:text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-10 h-10 rounded-xl bg-custom-subtle border border-[#86868B]/30 text-custom-accent flex items-center justify-center mx-auto mb-3 text-base">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+                <h3 class="text-base font-bold text-white" id="authModalTitle">Iniciar Sesión</h3>
+                <p class="text-[11px] text-custom-muted mt-0.5">Gestiona tus pedidos y listas guardadas.</p>
+            </div>
+            <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                <div id="nameFieldContainer" class="hidden space-y-1">
+                    <label class="text-[11px] font-semibold text-custom-muted">Nombre completo</label>
+                    <input type="text" id="authName" placeholder="Tu nombre" class="w-full px-4 py-2.5 bg-custom-subtle border border-[#86868B]/30 rounded-xl text-xs text-white focus:outline-none focus:border-custom-accent">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[11px] font-semibold text-custom-muted">Correo electrónico</label>
+                    <input type="email" id="authEmail" required placeholder="correo@ejemplo.com" class="w-full px-4 py-2.5 bg-custom-subtle border border-[#86868B]/30 rounded-xl text-xs text-white focus:outline-none focus:border-custom-accent">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[11px] font-semibold text-custom-muted">Contraseña</label>
+                    <input type="password" id="authPassword" required placeholder="••••••••" class="w-full px-4 py-2.5 bg-custom-subtle border border-[#86868B]/30 rounded-xl text-xs text-white focus:outline-none focus:border-custom-accent">
+                </div>
+                <button type="submit" id="authSubmitBtn" class="w-full bg-custom-accent hover:bg-blue-600 text-white border border-custom-accent font-semibold py-3 rounded-xl shadow-xs transition-all text-xs mt-2">
+                    Iniciar Sesión
+                </button>
+            </form>
+            <div class="text-center mt-5">
+                <p class="text-xs text-custom-muted" id="authToggleText">¿No tienes cuenta? <button type="button" onclick="toggleAuthMode()" class="text-custom-accent font-semibold hover:underline">Regístrate</button></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: FILTRO POR MODELO DE COMPUTADORA -->
+    <div id="pcFilterModal" onclick="handleBackdropClick(event, 'pcFilterModal')" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-4xl bg-custom-card border border-[#86868B]/30 rounded-3xl shadow-2xl p-6 sm:p-8 max-h-[90vh] flex flex-col justify-between" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between pb-4 border-b border-[#86868B]/30">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-custom-subtle border border-[#86868B]/30 text-custom-accent flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-white">Selecciona tu Modelo de Computadora</h3>
+                        <p class="text-xs text-custom-muted">Elige uno de los 15 equipos para verificar compatibilidad de repuestos.</p>
+                    </div>
+                </div>
+                <button onclick="closeCompatibilityFilterModal()" class="w-8 h-8 rounded-xl bg-custom-subtle border border-[#86868B]/30 text-custom-muted hover:text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Buscador interno de modelos -->
+            <div class="py-4">
+                <div class="relative w-full">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-custom-muted">
+                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    </span>
+                    <input type="text" id="pcModelSearchInput" oninput="filterComputerModels(this.value)" placeholder="Buscar marca, modelo o tipo (ej. Dell, Legion, Escritorio)..." class="w-full pl-10 pr-4 py-2.5 bg-custom-subtle border border-[#86868B]/30 rounded-xl text-xs text-white focus:outline-none focus:border-custom-accent shadow-xs">
+                </div>
+            </div>
+
+            <!-- Listado de los 15 modelos -->
+            <div id="pcModelsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 overflow-y-auto pr-1 flex-grow max-h-[52vh] pb-2">
+                <!-- Se llena dinámicamente con JS -->
+            </div>
+
+            <div class="pt-4 border-t border-[#86868B]/30 flex justify-between items-center text-xs text-custom-muted">
+                <span>15 modelos disponibles en base de datos</span>
+                <button onclick="closeCompatibilityFilterModal()" class="px-4 py-2 rounded-xl bg-custom-subtle hover:bg-custom-bg text-white border border-[#86868B]/30 transition-colors">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: DETALLE DE COMPATIBILIDAD (COMPATIBLE VS NO COMPATIBLE) -->
+    <div id="compatibilityDetailModal" onclick="handleBackdropClick(event, 'compatibilityDetailModal')" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-2xl bg-custom-card border border-[#86868B]/30 rounded-3xl shadow-2xl p-6 sm:p-8 max-h-[90vh] flex flex-col justify-between" onclick="event.stopPropagation()">
+            <div class="flex items-start justify-between pb-4 border-b border-[#86868B]/30">
+                <div>
+                    <span id="compatPcBadge" class="inline-block bg-custom-accent/20 text-custom-accent text-[10px] font-bold px-2.5 py-1 rounded-lg border border-custom-accent/40 mb-2">PC01</span>
+                    <h3 id="compatPcTitle" class="text-lg font-bold text-white leading-tight">Dell Inspiron 15 3520</h3>
+                    <p id="compatPcType" class="text-xs text-custom-muted">Tipo: Laptop</p>
+                    <p id="compatPcRef" class="text-[11px] text-custom-accent/90 mt-1 hidden"></p>
+                </div>
+                <button onclick="closeCompatibilityDetailModal()" class="w-8 h-8 rounded-xl bg-custom-subtle border border-[#86868B]/30 text-custom-muted hover:text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <div class="py-5 overflow-y-auto space-y-6 flex-grow pr-1 max-h-[58vh]">
+                <!-- Repuestos compatibles -->
+                <div class="bg-custom-subtle/80 border border-emerald-500/40 rounded-2xl p-4 sm:p-5 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <h4 class="text-sm font-bold text-emerald-400 uppercase tracking-wide">Repuestos Totalmente Compatibles</h4>
+                        </div>
+                        <span id="compatPartCount" class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/30">6 Repuestos</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="compatiblePartsList">
+                        <!-- Generado por JS -->
+                    </div>
+                </div>
+
+                <!-- Repuestos No compatibles / advertencias -->
+                <div class="bg-custom-subtle/80 border border-rose-500/30 rounded-2xl p-4 sm:p-5 space-y-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-xmark"></i>
+                        </span>
+                        <h4 class="text-sm font-bold text-rose-400 uppercase tracking-wide">Componentes / Repuestos No Compatibles</h4>
+                    </div>
+                    <div class="space-y-2" id="incompatiblePartsList">
+                        <!-- Generado por JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-[#86868B]/30 flex flex-col sm:flex-row gap-2 justify-between items-center">
+                <button onclick="backToPcListModal()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-custom-subtle hover:bg-custom-bg text-white border border-[#86868B]/30 text-xs font-semibold transition-all">
+                    <i class="fa-solid fa-arrow-left"></i> Cambiar modelo
+                </button>
+                <button onclick="closeCompatibilityDetailModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-custom-accent hover:bg-blue-600 text-white text-xs font-semibold shadow-xs transition-all border border-custom-accent">
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-custom-card border border-[#86868B]/30 text-white px-5 py-3.5 rounded-2xl shadow-lg flex items-center gap-3 pointer-events-none">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-custom-accent text-base"></i>
+        <span id="toastMessage" class="text-xs font-semibold">Producto añadido al carrito</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-custom-bg text-custom-muted py-10 border-t border-[#86868B]/20 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-7 h-7 rounded-lg bg-custom-card border border-[#86868B]/30 flex items-center justify-center text-custom-accent text-xs">
+                        <i class="fa-solid fa-laptop"></i>
+                    </div>
+                    <span class="text-sm font-bold text-white">MaDaTec</span>
+                </div>
+                <p class="text-xs text-custom-muted">Plataforma centralizada de hardware, repuestos y accesorios para equipos de cómputo.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-xs mb-3">Categorías</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#catalogSection" onclick="filterCategory('Componentes')" class="hover:text-white transition-colors">Componentes PC</a></li>
+                    <li><a href="#catalogSection" onclick="filterCategory('Repuestos')" class="hover:text-white transition-colors">Repuestos & Baterías</a></li>
+                    <li><a href="#catalogSection" onclick="filterCategory('Accesorios')" class="hover:text-white transition-colors">Accesorios & Fundas</a></li>
+                    <li><a href="#catalogSection" onclick="filterCategory('Periféricos')" class="hover:text-white transition-colors">Periféricos</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-xs mb-3">Proyecto</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><button onclick="switchView('valueProp')" class="hover:text-white transition-colors text-left">Modelo de Negocio</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-xs mb-3">Soporte</h4>
+                <p class="text-xs text-custom-muted mb-2">Asesoría en compatibilidad de componentes.</p>
+                <div class="flex items-center gap-2 text-xs text-white bg-custom-card border border-[#86868B]/30 p-2.5 rounded-xl shadow-xs">
+                    <i class="fa-solid fa-headset text-custom-accent"></i>
+                    <span>Soporte en línea activo</span>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-6 border-t border-[#86868B]/20 text-center text-xs text-custom-muted">
+            &copy; 2026 MaDaTec. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                name: "Memoria RAM 16GB DDR4 3200MHz",
+                category: "Componentes",
+                price: 1199.00,
+                rating: 4.8,
+                reviewsCount: 142,
+                image: "https://images.unsplash.com/photo-1562976540-1e02c5141203?auto=format&fit=crop&w=600&q=80",
+                description: "Memoria de alto rendimiento con disipador térmico para multitarea escolar y profesional sin interrupciones.",
+                specs: ["Capacidad: 16GB", "Tipo: DDR4", "Velocidad: 3200MHz", "Disipador de aluminio"]
+            },
+            {
+                id: 2,
+                name: "Procesador AMD Ryzen 5 5600G",
+                category: "Componentes",
+                price: 2899.00,
+                rating: 4.9,
+                reviewsCount: 230,
+                image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=600&q=80",
+                description: "Procesador de 6 núcleos con gráficos integrados Radeon Vega, ideal para productividad y entretenimiento.",
+                specs: ["Núcleos: 6 / Hilos: 12", "Gráficos Radeon Vega 7", "Socket AM4"]
+            },
+            {
+                id: 3,
+                name: "Tarjeta Gráfica NVIDIA RTX 3060 12GB",
+                category: "Componentes",
+                price: 6499.00,
+                rating: 4.9,
+                reviewsCount: 310,
+                image: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=600&q=80",
+                description: "Potencia gráfica avanzada para diseño profesional, renderizado 3D y juegos con Ray Tracing.",
+                specs: ["VRAM: 12GB GDDR6", "Ray Tracing Cores", "DLSS 2.0"]
+            },
+            {
+                id: 4,
+                name: "Disco Duro SSD M.2 NVMe 1TB",
+                category: "Componentes",
+                price: 1450.00,
+                rating: 4.7,
+                reviewsCount: 98,
+                image: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80",
+                description: "Velocidades de lectura ultrarrápidas de hasta 3500 MB/s para iniciar tu sistema en segundos.",
+                specs: ["Capacidad: 1TB", "Lectura hasta: 3500 MB/s", "Factor de forma: M.2 2280"]
+            },
+            {
+                id: 5,
+                name: "Fuente de Poder 650W 80+ Bronze",
+                category: "Repuestos",
+                price: 1299.00,
+                rating: 4.6,
+                reviewsCount: 75,
+                image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",
+                description: "Energía estable y segura con certificación 80 Plus Bronze para proteger todos tus componentes.",
+                specs: ["Potencia: 650W", "Certificación: 80 Plus Bronze"]
+            },
+            {
+                id: 6,
+                name: "Teclado Mecánico RGB Compacto TKL",
+                category: "Periféricos",
+                price: 899.00,
+                rating: 4.8,
+                reviewsCount: 420,
+                image: "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=600&q=80",
+                description: "Teclado mecánico con switches táctiles y retroiluminación RGB personalizable para escritura fluida.",
+                specs: ["Switches mecánicos", "Iluminación RGB por tecla"]
+            },
+            {
+                id: 7,
+                name: "Mouse Ergonómico Inalámbrico Óptico",
+                category: "Periféricos",
+                price: 499.00,
+                rating: 4.7,
+                reviewsCount: 180,
+                image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80",
+                description: "Diseño ergonómico avanzado para reducir la fatiga en jornadas prolongadas de estudio y trabajo.",
+                specs: ["Sensor óptico de alta precisión", "Batería recargable USB-C"]
+            },
+            {
+                id: 8,
+                name: "Funda Protectora para Laptop 15.6\"",
+                category: "Accesorios",
+                price: 349.00,
+                rating: 4.5,
+                reviewsCount: 64,
+                image: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80",
+                description: "Protección impermeable con forro de terciopelo interior y bolsillo frontal para accesorios.",
+                specs: ["Compatible hasta 15.6 pulgadas", "Material impermeable"]
+            },
+            {
+                id: 9,
+                name: "Pasta Térmica de Alto Rendimiento",
+                category: "Repuestos",
+                price: 199.00,
+                rating: 4.9,
+                reviewsCount: 312,
+                image: "https://images.unsplash.com/photo-1544652478-6653e09f18a2?auto=format&fit=crop&w=600&q=80",
+                description: "Compuesto térmico de jeringa para mantener tu procesador y tarjeta gráfica a temperaturas óptimas.",
+                specs: ["Contenido: Jeringa de 4g", "Alta conductividad térmica"]
+            },
+            {
+                id: 10,
+                name: "Batería de Repuesto para Laptop Estándar",
+                category: "Repuestos",
+                price: 850.00,
+                rating: 4.6,
+                reviewsCount: 52,
+                image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&q=80",
+                description: "Batería de repuesto compatible con múltiples modelos, celdas de ion de litio de larga duración.",
+                specs: ["Tecnología Li-Ion", "Protección contra sobrecarga"]
+            },
+            {
+                id: 11,
+                name: "Hub USB-C 7 en 1 Multi-puerto",
+                category: "Accesorios",
+                price: 599.00,
+                rating: 4.8,
+                reviewsCount: 190,
+                image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=600&q=80",
+                description: "Extiende la conectividad de tu laptop con puertos HDMI 4K, USB 3.0, lectores SD y carga Power Delivery.",
+                specs: ["Salida HDMI 4K@30Hz", "Puertos USB 3.0 de alta velocidad"]
+            },
+            {
+                id: 12,
+                name: "Auriculares Gamer con Micrófono y LED",
+                category: "Periféricos",
+                price: 799.00,
+                rating: 4.7,
+                reviewsCount: 215,
+                image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80",
+                description: "Sonido envolvente estéreo con almohadillas acolchadas y micrófono con cancelación de ruido.",
+                specs: ["Drivers de 50mm", "Micrófono omnidireccional flexible"]
+            }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('madatec_cart')) || [];
+        let currentFilter = 'all';
+        let searchQuery = '';
+        let currentUser = JSON.parse(localStorage.getItem('madatec_user')) || null;
+        let isRegisterMode = false;
+        let toastTimeout = null;
+
+        const computerModels = [
+            {
+                id: "PC01",
+                brand: "Dell",
+                model: "Inspiron 15 3520",
+                type: "Laptop",
+                reference: "Manual oficial de Dell",
+                parts: [
+                    { id: "RP001", name: "Batería compatible." },
+                    { id: "RP002", name: "Memoria RAM compatible." },
+                    { id: "RP003", name: "Unidad SSD M.2." },
+                    { id: "RP004", name: "Ventilador interno." },
+                    { id: "RP005", name: "Pantalla LCD compatible." },
+                    { id: "RP006", name: "Teclado de repuesto." }
+                ],
+                incompatibles: [
+                    { title: "Fuentes de poder ATX estándar", desc: "Usa adaptador de corriente DC de laptop con conector cilíndrico Dell de 4.5mm." },
+                    { title: "Módulos DIMM estándar de PC de escritorio", desc: "Solo soporta módulos SO-DIMM compactos de bajo consumo." },
+                    { title: "Baterías de chasis Dell Latitude / XPS", desc: "Factor de forma y cable flex de conector no coinciden con el chasis Inspiron 3520." }
+                ]
+            },
+            {
+                id: "PC02",
+                brand: "HP",
+                model: "Pavilion 15-eg",
+                type: "Laptop",
+                reference: "Catálogo técnico HP Pavilion",
+                parts: [
+                    { id: "RP007", name: "Batería compatible." },
+                    { id: "RP008", name: "Memoria RAM compatible." },
+                    { id: "RP009", name: "SSD M.2 NVMe." },
+                    { id: "RP010", name: "Teclado de repuesto." },
+                    { id: "RP011", name: "Ventilador interno." },
+                    { id: "RP012", name: "Pantalla LCD compatible." }
+                ],
+                incompatibles: [
+                    { title: "Teclados serie HP OMEN / Envy", desc: "Puntos de anclaje térmico y marco de teclas incompatibles con el chasis Pavilion 15-eg." },
+                    { title: "Discos mecánicos HDD de 3.5\"", desc: "No dispone de bahía física SATA voluminosa; únicamente ranura M.2 NVMe." },
+                    { title: "Baterías de 6 celdas gruesas serie EliteBook", desc: "El chasis ultradelgado Pavilion no admite paquetes de celdas cilíndricas 18650." }
+                ]
+            },
+            {
+                id: "PC03",
+                brand: "Lenovo",
+                model: "ThinkPad T14 Gen 4",
+                type: "Laptop empresarial",
+                reference: "Especificaciones oficiales Lenovo PSREF",
+                parts: [
+                    { id: "RP013", name: "Batería interna compatible." },
+                    { id: "RP014", name: "SSD M.2 NVMe." },
+                    { id: "RP015", name: "Teclado ThinkPad compatible." },
+                    { id: "RP016", name: "Ventilador interno." },
+                    { id: "RP017", name: "Pantalla compatible." },
+                    { id: "RP018", name: "Tarjeta Wi-Fi compatible." }
+                ],
+                incompatibles: [
+                    { title: "Teclados estándar sin conector TrackPoint", desc: "Requiere teclado original ThinkPad con módulo integrado de puntero rojo y doble bus flex." },
+                    { title: "Tarjetas Wi-Fi no autorizadas por BIOS (Whitelist)", desc: "El firmware corporativo Lenovo bloquea tarjetas WLAN sin ID de subsistema compatible." },
+                    { title: "Memorias RAM DIMM de escritorio", desc: "Incompatible por tamaño y factor de forma SO-DIMM." }
+                ]
+            },
+            {
+                id: "PC04",
+                brand: "ASUS",
+                model: "VivoBook 15 X1504",
+                type: "Laptop",
+                reference: "Ficha de servicio ASUS Global",
+                parts: [
+                    { id: "RP019", name: "Batería compatible." },
+                    { id: "RP020", name: "SSD M.2 NVMe." },
+                    { id: "RP021", name: "Memoria RAM compatible con la configuración." },
+                    { id: "RP022", name: "Teclado de repuesto." },
+                    { id: "RP023", name: "Ventilador interno." },
+                    { id: "RP024", name: "Pantalla LCD compatible." }
+                ],
+                incompatibles: [
+                    { title: "Disipadores con doble ventilador serie ROG", desc: "Dimensiones y anclaje incompatibles con la placa base monomódulo VivoBook." },
+                    { title: "Módulos de RAM que no respeten la frecuencia del canal integrado", desc: "Parte de la memoria está integrada en placa; el módulo adicional debe empatar voltaje y bus." },
+                    { title: "Fuentes de poder internas estándar ATX", desc: "Funciona mediante adaptador externo de 19V / 45W o 65W." }
+                ]
+            },
+            {
+                id: "PC05",
+                brand: "Acer",
+                model: "Aspire 5 A515-58",
+                type: "Laptop",
+                reference: "Manual de servicio Acer",
+                parts: [
+                    { id: "RP025", name: "Batería compatible." },
+                    { id: "RP026", name: "SSD M.2 NVMe." },
+                    { id: "RP027", name: "Memoria RAM compatible." },
+                    { id: "RP028", name: "Ventilador interno." },
+                    { id: "RP029", name: "Teclado de repuesto." },
+                    { id: "RP030", name: "Pantalla LCD compatible." }
+                ],
+                incompatibles: [
+                    { title: "Ventiladores AeroBlade de la serie Predator", desc: "El chasis estándar Aspire utiliza turbina compacta de perfil bajo con anclaje de 3 tornillos." },
+                    { title: "Pantallas de 40 pines con refresh rate de 240Hz", desc: "El cable flexible eDP de este modelo es de 30 pines estándar a 60Hz FHD." },
+                    { title: "Unidades SSD con disipadores gruesos de torre", desc: "El espacio libre debajo de la tapa inferior es menor a 2.5mm." }
+                ]
+            },
+            {
+                id: "PC06",
+                brand: "Apple",
+                model: "MacBook Air M2",
+                type: "Laptop",
+                reference: "Apple Self Service Repair Manual",
+                notes: "La RAM y el almacenamiento interno están integrados en el chip Apple Silicon M2; no son módulos de actualización convencionales.",
+                parts: [
+                    { id: "RP031", name: "Batería específica para MacBook Air M2." },
+                    { id: "RP032", name: "Pantalla compatible." },
+                    { id: "RP033", name: "Teclado compatible." },
+                    { id: "RP034", name: "Trackpad compatible." },
+                    { id: "RP035", name: "Altavoces de repuesto." },
+                    { id: "RP036", name: "Placa MagSafe de carga compatible." }
+                ],
+                incompatibles: [
+                    { title: "Módulos de memoria RAM SO-DIMM (DDR4 / DDR5)", desc: "Completamente incompatible: Memoria Unificada integrada (UMA) en el SoC M2." },
+                    { title: "Unidades SSD estándar M.2 NVMe PCIe", desc: "El almacenamiento NAND está soldado directamente en la placa lógica principal." },
+                    { title: "Baterías de MacBook Air M1 o modelos Intel", desc: "El formato de celda en varios niveles y conectores de diagnóstico son exclusivos del modelo M2." }
+                ]
+            },
+            {
+                id: "PC07",
+                brand: "MSI",
+                model: "Thin 15 B12UC",
+                type: "Laptop gamer",
+                reference: "Guía técnica MSI Gaming",
+                parts: [
+                    { id: "RP037", name: "Batería compatible." },
+                    { id: "RP038", name: "SSD M.2 NVMe." },
+                    { id: "RP039", name: "Memoria RAM SO-DIMM compatible." },
+                    { id: "RP040", name: "Ventilador de CPU compatible." },
+                    { id: "RP041", name: "Ventilador de GPU compatible." },
+                    { id: "RP042", name: "Pantalla compatible." }
+                ],
+                incompatibles: [
+                    { title: "Ventiladores Cooler Boost de chasis Raider / Titan", desc: "Tienen un grosor excesivo y conectores de 5 pines no compatibles con el chasis delgado Thin 15." },
+                    { title: "Cargadores con potencia menor a 120W", desc: "Provocan descarga de batería durante sesiones de juego por déficit energético." },
+                    { title: "Discos mecánicos SATA 3.5\" y fuentes ATX", desc: "Incompatibles por diseño interno de laptop compacta." }
+                ]
+            },
+            {
+                id: "PC08",
+                brand: "Samsung",
+                model: "Galaxy Book3 15.6\"",
+                type: "Laptop",
+                reference: "Ficha de repuestos Samsung Electronics",
+                parts: [
+                    { id: "RP043", name: "Batería compatible." },
+                    { id: "RP044", name: "SSD M.2 compatible." },
+                    { id: "RP045", name: "Teclado de repuesto." },
+                    { id: "RP046", name: "Pantalla compatible." },
+                    { id: "RP047", name: "Ventilador interno, si corresponde a la variante." },
+                    { id: "RP048", name: "Cable de carga o puerto de alimentación compatible." }
+                ],
+                incompatibles: [
+                    { title: "Paneles OLED de la serie Ultra o tamaños de 14\"", desc: "Los voltajes de control eDP y el grosor del bisel no corresponden a la versión Book3 15.6\"." },
+                    { title: "Cargadores sin protocolo USB Power Delivery (PD)", desc: "Requiere cargadores inteligentes Tipo-C que negocien 20V / 3.25A (65W)." },
+                    { title: "Módulos DIMM estándar de escritorio", desc: "No soportados; utiliza memoria para ordenadores portátiles." }
+                ]
+            },
+            {
+                id: "PC09",
+                brand: "Microsoft",
+                model: "Surface Laptop 5",
+                type: "Laptop",
+                reference: "Microsoft Surface Service Guide",
+                parts: [
+                    { id: "RP049", name: "Batería específica del modelo." },
+                    { id: "RP050", name: "Pantalla compatible." },
+                    { id: "RP051", name: "Teclado o conjunto superior compatible." },
+                    { id: "RP052", name: "SSD M.2 2230 compatible." },
+                    { id: "RP053", name: "Ventilador interno compatible." },
+                    { id: "RP054", name: "Altavoces compatibles." }
+                ],
+                incompatibles: [
+                    { title: "Unidades SSD estándar M.2 2280 de longitud completa", desc: "Solo admite el factor de forma ultracorto M.2 2230 accesible tras la cubierta inferior." },
+                    { title: "Pantallas tradicionales con formato 16:9", desc: "Surface emplea relación de aspecto exclusiva PixelSense 3:2 con digitalizador táctil calibrado." },
+                    { title: "Teclados no magnéticos o de generaciones anteriores", desc: "El teclado forma una pieza ensamblada con la carcasa de aluminio superior." }
+                ]
+            },
+            {
+                id: "PC10",
+                brand: "LG",
+                model: "gram 14",
+                type: "Laptop",
+                reference: "Manual de partes LG gram",
+                parts: [
+                    { id: "RP055", name: "Batería compatible." },
+                    { id: "RP056", name: "SSD M.2 NVMe compatible." },
+                    { id: "RP057", name: "Teclado de repuesto." },
+                    { id: "RP058", name: "Pantalla compatible." },
+                    { id: "RP059", name: "Ventilador interno." },
+                    { id: "RP060", name: "Tarjeta Wi-Fi compatible." }
+                ],
+                incompatibles: [
+                    { title: "Baterías pesadas de aleación de litio de chasis 16\" o 17\"", desc: "El chasis ultraligero de magnesio de 14\" requiere la batería plana calibrada de 72Wh/80Wh de su tamaño." },
+                    { title: "Ventiladores metálicos pesados para equipos de alto consumo", desc: "LG utiliza turbinas ultraligeras de aspas delgadas de polímero silencioso." },
+                    { title: "Memorias RAM DIMM de escritorio", desc: "Incompatible por factor de forma y arquitectura." }
+                ]
+            },
+            {
+                id: "PC11",
+                brand: "Lenovo",
+                model: "Legion 5",
+                type: "Laptop gamer",
+                reference: "Lenovo Legion Hardware Maintenance",
+                parts: [
+                    { id: "RP061", name: "Batería compatible." },
+                    { id: "RP062", name: "SSD M.2 NVMe." },
+                    { id: "RP063", name: "Memoria RAM SO-DIMM compatible." },
+                    { id: "RP064", name: "Ventilador de CPU." },
+                    { id: "RP065", name: "Ventilador de GPU." },
+                    { id: "RP066", name: "Pantalla compatible." }
+                ],
+                incompatibles: [
+                    { title: "Fuentes de alimentación estándar de menos de 170W/230W", desc: "Requiere cargador rectangular Lenovo Slim Tip con suficiente amperaje para CPU y GPU dedicadas." },
+                    { title: "Ventiladores estándar IdeaPad", desc: "La solución Coldfront de Legion utiliza doble ventilador simétrico con disipador de 4 salidas." },
+                    { title: "Discos duros mecánicos de 3.5\"", desc: "No soportados por limitaciones físicas de la bahía interna." }
+                ]
+            },
+            {
+                id: "PC12",
+                brand: "HP",
+                model: "EliteBook 840 G10",
+                type: "Laptop empresarial",
+                reference: "Guía de mantenimiento y servicio HP",
+                parts: [
+                    { id: "RP067", name: "Batería compatible." },
+                    { id: "RP068", name: "SSD M.2 NVMe." },
+                    { id: "RP069", name: "Teclado de repuesto." },
+                    { id: "RP070", name: "Ventilador interno." },
+                    { id: "RP071", name: "Pantalla compatible." },
+                    { id: "RP072", name: "Tarjeta Wi-Fi compatible." }
+                ],
+                incompatibles: [
+                    { title: "Teclados HP Pavilion / Envy", desc: "Los modelos empresariales EliteBook cuentan con sellado resistente a salpicaduras y bus de retroiluminación diferente." },
+                    { title: "Módulos de memoria RAM de escritorio", desc: "Utiliza dos zócalos SO-DIMM accesibles debajo del blindaje térmico." },
+                    { title: "Baterías de generaciones anteriores (G5, G6, G7)", desc: "El factor de forma de la placa y conector principal de batería variaron en la generación G10." }
+                ]
+            },
+            {
+                id: "PC13",
+                brand: "Dell",
+                model: "OptiPlex 7010",
+                type: "Computadora de escritorio",
+                reference: "Manual de servicio Dell OptiPlex",
+                parts: [
+                    { id: "RP073", name: "Memoria RAM compatible con la generación." },
+                    { id: "RP074", name: "SSD SATA de 2.5\", si admite esa conexión." },
+                    { id: "RP075", name: "SSD M.2 compatible, según placa." },
+                    { id: "RP076", name: "Fuente de alimentación del formato correspondiente." },
+                    { id: "RP077", name: "Ventilador de gabinete compatible." },
+                    { id: "RP078", name: "Tarjeta de red compatible." }
+                ],
+                incompatibles: [
+                    { title: "Baterías de computadoras portátiles (Laptops)", desc: "Es un equipo de escritorio conectado directamente a corriente alterna (AC 110/220V)." },
+                    { title: "Fuentes ATX genéricas estándar de 24 pines (sin adaptador)", desc: "Dell utiliza fuentes propietarias con conectores ATX de 6 u 8 pines según chasis SFF/Micro/Tower." },
+                    { title: "Módulos de memoria RAM SO-DIMM de laptop", desc: "Requiere módulos DIMM de escritorio de longitud estándar (288 pines)." }
+                ]
+            },
+            {
+                id: "PC14",
+                brand: "ASUS",
+                model: "ROG Strix G16",
+                type: "Laptop gamer",
+                reference: "ASUS ROG Service Manual",
+                parts: [
+                    { id: "RP079", name: "Batería específica del modelo." },
+                    { id: "RP080", name: "SSD M.2 NVMe." },
+                    { id: "RP081", name: "Memoria RAM compatible." },
+                    { id: "RP082", name: "Ventilador de CPU compatible." },
+                    { id: "RP083", name: "Ventilador de GPU compatible." },
+                    { id: "RP084", name: "Pantalla compatible." }
+                ],
+                incompatibles: [
+                    { title: "Compuestos térmicos convencionales no aptos para Metal Líquido", desc: "La serie ROG Strix G16 utiliza aislamiento de barrera para metal líquido en la CPU; pastas térmicas estándar degradan el rendimiento térmico." },
+                    { title: "Ventiladores monomódulo de la serie ZenBook", desc: "Requiere sistema de triple ventilador Tri-Fan ROG con flujo de aire optimizado." },
+                    { title: "Fuentes de escritorio ATX y cargadores USB-C menores a 100W", desc: "Provocan insuficiencia de energía durante cargas altas de GPU." }
+                ]
+            },
+            {
+                id: "PC15",
+                brand: "Acer",
+                model: "Veriton X",
+                type: "Computadora de escritorio",
+                reference: "Especificaciones comerciales Acer Veriton",
+                parts: [
+                    { id: "RP085", name: "Memoria RAM compatible." },
+                    { id: "RP086", name: "SSD M.2 compatible, si la placa lo admite." },
+                    { id: "RP087", name: "SSD SATA de 2.5\"." },
+                    { id: "RP088", name: "Fuente de alimentación del formato correspondiente." },
+                    { id: "RP089", name: "Ventilador de gabinete compatible." },
+                    { id: "RP090", name: "Tarjeta gráfica compatible con la placa y la fuente." }
+                ],
+                incompatibles: [
+                    { title: "Tarjetas gráficas de tamaño completo con disipador triple", desc: "El chasis compacto Veriton X (Small Form Factor) solo admite tarjetas de bajo perfil (Low Profile - LP) de un solo conector o alimentación PCIe directa." },
+                    { title: "Baterías recargables de ordenador portátil", desc: "Equipo de sobremesa que no integra batería de carga interna." },
+                    { title: "Módulos de memoria RAM SO-DIMM de laptop", desc: "Utiliza bancos de memoria DIMM DDR4/DDR5 para placa madre de sobremesa." }
+                ]
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(products);
+            updateCartUI();
+            updateAuthUI();
+            renderComputerModelsList(computerModels);
+        });
+
+        // FUNCIONES DE FILTRO POR MODELO DE COMPUTADORA
+        function openCompatibilityFilterModal() {
+            renderComputerModelsList(computerModels);
+            const searchInput = document.getElementById('pcModelSearchInput');
+            if (searchInput) searchInput.value = '';
+            document.getElementById('pcFilterModal').classList.remove('hidden');
+        }
+
+        function closeCompatibilityFilterModal() {
+            document.getElementById('pcFilterModal').classList.add('hidden');
+        }
+
+        function filterComputerModels(query) {
+            const cleanQuery = query.toLowerCase().trim();
+            const filtered = computerModels.filter(pc => 
+                pc.id.toLowerCase().includes(cleanQuery) ||
+                pc.brand.toLowerCase().includes(cleanQuery) ||
+                pc.model.toLowerCase().includes(cleanQuery) ||
+                pc.type.toLowerCase().includes(cleanQuery)
+            );
+            renderComputerModelsList(filtered);
+        }
+
+        function renderComputerModelsList(list) {
+            const container = document.getElementById('pcModelsGrid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (list.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full py-8 text-center text-custom-muted text-xs">
+                        No se encontró ningún modelo con ese criterio.
+                    </div>
+                `;
+                return;
+            }
+
+            list.forEach(pc => {
+                const item = document.createElement('div');
+                item.className = "bg-custom-subtle hover:bg-custom-bg border border-[#86868B]/30 hover:border-custom-accent rounded-2xl p-3.5 transition-all cursor-pointer flex flex-col justify-between group shadow-xs";
+                item.onclick = () => selectComputerModel(pc.id);
+                item.innerHTML = `
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="text-[10px] font-bold text-custom-accent bg-custom-accent/10 px-2 py-0.5 rounded border border-custom-accent/30">${pc.id}</span>
+                        <span class="text-[10px] text-custom-muted">${pc.type}</span>
+                    </div>
+                    <div class="my-1">
+                        <span class="text-[10px] font-semibold text-custom-muted uppercase tracking-wider block">${pc.brand}</span>
+                        <h4 class="text-xs font-bold text-white group-hover:text-custom-accent transition-colors line-clamp-1">${pc.model}</h4>
+                    </div>
+                    <div class="pt-2 border-t border-[#86868B]/20 flex items-center justify-between text-[10px] text-custom-muted">
+                        <span class="text-emerald-400 font-semibold">${pc.parts.length} repuestos verificados</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-custom-accent group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function selectComputerModel(pcId) {
+            const pc = computerModels.find(item => item.id === pcId);
+            if (!pc) return;
+
+            closeCompatibilityFilterModal();
+
+            // Llenar encabezado del modal de compatibilidad
+            const badgeEl = document.getElementById('compatPcBadge');
+            const titleEl = document.getElementById('compatPcTitle');
+            const typeEl = document.getElementById('compatPcType');
+            const countEl = document.getElementById('compatPartCount');
+            const refEl = document.getElementById('compatPcRef');
+
+            if (badgeEl) badgeEl.textContent = `${pc.id} • ${pc.brand}`;
+            if (titleEl) titleEl.textContent = `${pc.brand} ${pc.model}`;
+            if (typeEl) typeEl.textContent = `Tipo de equipo: ${pc.type}`;
+            if (countEl) countEl.textContent = `${pc.parts.length} Repuestos compatibles`;
+            
+            if (refEl) {
+                if (pc.reference) {
+                    refEl.textContent = `Referencia: ${pc.reference}`;
+                    refEl.classList.remove('hidden');
+                } else {
+                    refEl.classList.add('hidden');
+                }
+            }
+
+            // Listado de los repuestos compatibles (RP001 - RP090)
+            const compatList = document.getElementById('compatiblePartsList');
+            if (compatList) {
+                compatList.innerHTML = '';
+                pc.parts.forEach(part => {
+                    const partBox = document.createElement('div');
+                    partBox.className = "p-3 bg-custom-card rounded-xl border border-emerald-500/20 flex items-start gap-2.5 shadow-xs hover:border-emerald-500/40 transition-colors";
+                    partBox.innerHTML = `
+                        <span class="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-1.5 py-0.5 rounded mt-0.5 shrink-0">
+                            ${part.id}
+                        </span>
+                        <div class="flex-grow">
+                            <p class="text-xs font-semibold text-white leading-snug">${part.name}</p>
+                            <span class="text-[10px] text-custom-muted flex items-center gap-1 mt-0.5">
+                                <i class="fa-solid fa-check text-emerald-400 text-[9px]"></i> Compatible verificado
+                            </span>
+                        </div>
+                    `;
+                    compatList.appendChild(partBox);
+                });
+            }
+
+            // Si el modelo tiene nota técnica especial (como Apple M2), agregarla arriba de incompatibilidades
+            const incompatList = document.getElementById('incompatiblePartsList');
+            if (incompatList) {
+                incompatList.innerHTML = '';
+
+                if (pc.notes) {
+                    const noteBox = document.createElement('div');
+                    noteBox.className = "p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs text-amber-200 mb-2 flex items-start gap-2";
+                    noteBox.innerHTML = `
+                        <i class="fa-solid fa-triangle-exclamation text-amber-400 mt-0.5"></i>
+                        <div>
+                            <strong class="font-bold text-white block">Aviso de Arquitectura:</strong>
+                            <span>${pc.notes}</span>
+                        </div>
+                    `;
+                    incompatList.appendChild(noteBox);
+                }
+
+                // Incompatibilidades dinámicas asociadas al modelo
+                pc.incompatibles.forEach(incompat => {
+                    const div = document.createElement('div');
+                    div.className = "p-3 bg-custom-card rounded-xl border border-rose-500/20 text-xs";
+                    div.innerHTML = `
+                        <p class="font-bold text-white text-xs flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-exclamation text-rose-400 text-[10px]"></i> ${incompat.title}
+                        </p>
+                        <p class="text-[11px] text-custom-muted mt-0.5 leading-relaxed">${incompat.desc}</p>
+                    `;
+                    incompatList.appendChild(div);
+                });
+            }
+
+            const detailModal = document.getElementById('compatibilityDetailModal');
+            if (detailModal) detailModal.classList.remove('hidden');
+        }
+
+        function closeCompatibilityDetailModal() {
+            const detailModal = document.getElementById('compatibilityDetailModal');
+            if (detailModal) detailModal.classList.add('hidden');
+        }
+
+        function backToPcListModal() {
+            closeCompatibilityDetailModal();
+            openCompatibilityFilterModal();
+        }
+
+        function renderProducts(items) {
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyState');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            items.forEach(product => {
+                const card = document.createElement('div');
+                card.className = "bg-custom-card rounded-2xl border border-[#86868B]/30 overflow-hidden shadow-xs hover:border-custom-accent transition-all flex flex-col justify-between group";
+                card.innerHTML = `
+                    <div class="relative overflow-hidden cursor-pointer bg-custom-subtle h-48" onclick="openProductDetail(${product.id})">
+                        <span class="absolute top-3 left-3 z-10 bg-[#131313]/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-lg border border-[#86868B]/30">${product.category}</span>
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between space-y-4">
+                        <div class="space-y-2 cursor-pointer" onclick="openProductDetail(${product.id})">
+                            <div class="flex items-center gap-1 text-[11px] text-amber-400 font-semibold">
+                                <i class="fa-solid fa-star"></i>
+                                <span>${product.rating}</span>
+                                <span class="text-custom-muted font-normal">(${product.reviewsCount})</span>
+                            </div>
+                            <h3 class="font-bold text-white text-xs sm:text-sm line-clamp-1 group-hover:text-custom-accent transition-colors">${product.name}</h3>
+                            <p class="text-custom-muted text-[11px] line-clamp-2 leading-relaxed">${product.description}</p>
+                        </div>
+                        <div class="pt-2 border-t border-[#86868B]/20 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-custom-muted block uppercase">Precio</span>
+                                <span class="text-sm font-bold text-white">$${product.price.toFixed(2)}</span>
+                            </div>
+                            <button onclick="addToCart(${product.id})" class="bg-custom-accent hover:bg-blue-600 text-white p-2.5 rounded-xl text-xs font-semibold shadow-xs transition-all flex items-center justify-center border border-custom-accent" title="Agregar al carrito">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(category) {
+            currentFilter = category;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                const btnLabel = btn.textContent.trim().toLowerCase();
+                const target = category.toLowerCase();
+                if (btnLabel === target || (category === 'all' && btnLabel === 'todos')) {
+                    btn.className = "cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-custom-accent text-white border border-custom-accent shadow-xs transition-all";
+                } else {
+                    btn.className = "cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-custom-card text-custom-muted hover:text-white border border-[#86868B]/30 transition-all shadow-xs";
+                }
+            });
+            applyFiltersAndSearch();
+        }
+
+        function handleSearch(query) {
+            searchQuery = query.toLowerCase().trim();
+            const headerSearch = document.getElementById('headerSearch');
+            const mobileSearch = document.getElementById('mobileSearch');
+            if (headerSearch && headerSearch.value !== query) headerSearch.value = query;
+            if (mobileSearch && mobileSearch.value !== query) mobileSearch.value = query;
+
+            applyFiltersAndSearch();
+        }
+
+        function applyFiltersAndSearch() {
+            let filtered = products;
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(p => p.category.toLowerCase() === currentFilter.toLowerCase());
+            }
+            if (searchQuery !== '') {
+                filtered = filtered.filter(p => 
+                    p.name.toLowerCase().includes(searchQuery) || 
+                    p.description.toLowerCase().includes(searchQuery) ||
+                    p.category.toLowerCase().includes(searchQuery)
+                );
+            }
+            renderProducts(filtered);
+        }
+
+        function resetFilters() {
+            currentFilter = 'all';
+            searchQuery = '';
+            const headerSearch = document.getElementById('headerSearch');
+            const mobileSearch = document.getElementById('mobileSearch');
+            if (headerSearch) headerSearch.value = '';
+            if (mobileSearch) mobileSearch.value = '';
+            filterCategory('all');
+        }
+
+        function scrollToCatalog() {
+            switchView('store');
+            document.getElementById('catalogSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function switchView(viewName) {
+            const storeView = document.getElementById('storeView');
+            const valuePropView = document.getElementById('valuePropView');
+            const detailView = document.getElementById('detailView');
+
+            storeView.classList.add('hidden');
+            valuePropView.classList.add('hidden');
+            detailView.classList.add('hidden');
+
+            if (viewName === 'store') {
+                storeView.classList.remove('hidden');
+            } else if (viewName === 'valueProp') {
+                valuePropView.classList.remove('hidden');
+            } else if (viewName === 'detail') {
+                detailView.classList.remove('hidden');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const container = document.getElementById('productDetailContent');
+            container.innerHTML = `
+                <div class="rounded-2xl overflow-hidden bg-custom-subtle border border-[#86868B]/30 h-80 lg:h-full flex items-center justify-center">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                </div>
+                <div class="space-y-6 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <span class="inline-block bg-custom-subtle text-custom-accent text-[10px] font-bold px-3 py-1 rounded-lg border border-[#86868B]/30">${product.category}</span>
+                        <h1 class="text-xl sm:text-2xl font-bold text-white">${product.name}</h1>
+                        <div class="flex items-center gap-2 text-xs text-amber-400 font-semibold">
+                            <i class="fa-solid fa-star"></i>
+                            <span>${product.rating}</span>
+                            <span class="text-custom-muted font-normal">(${product.reviewsCount} valoraciones)</span>
+                        </div>
+                        <p class="text-custom-muted text-xs sm:text-sm leading-relaxed">${product.description}</p>
+                        <div class="pt-2">
+                            <h4 class="text-white font-bold text-xs mb-2">Especificaciones técnicas:</h4>
+                            <ul class="space-y-1.5 text-xs text-custom-muted">
+                                ${product.specs.map(spec => `<li class="flex items-center gap-2"><i class="fa-solid fa-check text-custom-accent text-[10px]"></i> ${spec}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-[#86868B]/30 flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] text-custom-muted block uppercase">Precio total</span>
+                            <span class="text-xl font-bold text-white">$${product.price.toFixed(2)}</span>
+                        </div>
+                        <button onclick="addToCart(${product.id}); switchView('store');" class="bg-custom-accent hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl text-xs shadow-xs transition-all flex items-center gap-2 border border-custom-accent">
+                            <i class="fa-solid fa-cart-plus"></i> AGREGAR AL CARRITO
+                        </button>
+                    </div>
+                </div>
+            `;
+            switchView('detail');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            saveCart();
+            updateCartUI();
+            showToast(`¡${product.name} agregado al carrito!`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+            updateCartUI();
+        }
+
+        function updateQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                removeFromCart(productId);
+            } else {
+                saveCart();
+                updateCartUI();
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('madatec_cart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const itemsList = document.getElementById('cartItemsList');
+            const subtotalEl = document.getElementById('cartSubtotal');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            badge.textContent = totalCount;
+            subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+
+            if (cart.length === 0) {
+                itemsList.innerHTML = `
+                    <div class="text-center py-12 space-y-3">
+                        <div class="w-10 h-10 bg-custom-subtle text-custom-muted rounded-full flex items-center justify-center mx-auto text-sm border border-[#86868B]/30">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+                        <p class="text-xs text-custom-muted font-medium">Tu carrito está vacío</p>
+                    </div>
+                `;
+                return;
+            }
+
+            itemsList.innerHTML = '';
+            cart.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "flex items-center gap-4 py-3";
+                div.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl bg-custom-subtle border border-[#86868B]/30">
+                    <div class="flex-grow space-y-1">
+                        <h4 class="text-xs font-bold text-white line-clamp-1">${item.name}</h4>
+                        <p class="text-xs font-semibold text-custom-muted">$${item.price.toFixed(2)}</p>
+                        <div class="flex items-center gap-2 pt-1">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 rounded-lg bg-custom-subtle border border-[#86868B]/30 text-white flex items-center justify-center text-xs hover:border-custom-accent">-</button>
+                            <span class="text-xs font-bold text-white w-4 text-center">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 rounded-lg bg-custom-subtle border border-[#86868B]/30 text-white flex items-center justify-center text-xs hover:border-custom-accent">+</button>
+                        </div>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" class="text-custom-muted hover:text-red-400 p-2 transition-colors" title="Eliminar">
+                        <i class="fa-solid fa-trash-can text-xs"></i>
+                    </button>
+                `;
+                itemsList.appendChild(div);
+            });
+        }
+
+        function toggleCartModal(open) {
+            const modal = document.getElementById('cartModal');
+            if (open) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function checkoutCart() {
+            if (cart.length === 0) {
+                showToast("Tu carrito está vacío", "fa-triangle-exclamation");
+                return;
+            }
+            showToast("¡Pedido procesado con éxito! Gracias por comprar en MaDaTec.");
+            cart = [];
+            saveCart();
+            updateCartUI();
+            toggleCartModal(false);
+        }
+
+        function openAuthModal(registerDirectly = false) {
+            if (currentUser) {
+                // Modal de confirmación simple sin usar confirm()
+                currentUser = null;
+                localStorage.removeItem('madatec_user');
+                updateAuthUI();
+                showToast("Sesión cerrada correctamente");
+                return;
+            }
+
+            isRegisterMode = registerDirectly;
+            setAuthModalMode(isRegisterMode);
+
+            const emailInput = document.getElementById('authEmail');
+            const nameInput = document.getElementById('authName');
+            const passwordInput = document.getElementById('authPassword');
+            if (emailInput) emailInput.value = '';
+            if (nameInput) nameInput.value = '';
+            if (passwordInput) passwordInput.value = '';
+
+            document.getElementById('authModal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+        }
+
+        function setAuthModalMode(isRegister) {
+            const title = document.getElementById('authModalTitle');
+            const nameContainer = document.getElementById('nameFieldContainer');
+            const submitBtn = document.getElementById('authSubmitBtn');
+            const toggleText = document.getElementById('authToggleText');
+
+            if (isRegister) {
+                title.textContent = "Crear Cuenta";
+                nameContainer.classList.remove('hidden');
+                document.getElementById('authName').required = true;
+                submitBtn.textContent = "Registrarse";
+                toggleText.innerHTML = `¿Ya tienes cuenta? <button type="button" onclick="toggleAuthMode()" class="text-custom-accent font-semibold hover:underline">Inicia Sesión</button>`;
+            } else {
+                title.textContent = "Iniciar Sesión";
+                nameContainer.classList.add('hidden');
+                document.getElementById('authName').required = false;
+                submitBtn.textContent = "Iniciar Sesión";
+                toggleText.innerHTML = `¿No tienes cuenta? <button type="button" onclick="toggleAuthMode()" class="text-custom-accent font-semibold hover:underline">Regístrate</button>`;
+            }
+        }
+
+        function toggleAuthMode() {
+            isRegisterMode = !isRegisterMode;
+            setAuthModalMode(isRegisterMode);
+        }
+
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('authEmail').value;
+            const nameInput = document.getElementById('authName').value;
+
+            currentUser = {
+                email: email,
+                name: isRegisterMode ? (nameInput || email.split('@')[0]) : email.split('@')[0]
+            };
+
+            localStorage.setItem('madatec_user', JSON.stringify(currentUser));
+            updateAuthUI();
+            closeAuthModal();
+            showToast(isRegisterMode ? "¡Cuenta creada exitosamente!" : "¡Sesión iniciada correctamente!");
+        }
+
+        function updateAuthUI() {
+            const btnText = document.getElementById('userAccountBtnText');
+            if (currentUser) {
+                btnText.textContent = currentUser.name.toUpperCase();
+            } else {
+                btnText.textContent = "CUENTA";
+            }
+        }
+
+        function handleBackdropClick(event, modalId) {
+            if (event.target.id === modalId) {
+                if (modalId === 'cartModal') toggleCartModal(false);
+                if (modalId === 'authModal') closeAuthModal();
+                if (modalId === 'pcFilterModal') closeCompatibilityFilterModal();
+                if (modalId === 'compatibilityDetailModal') closeCompatibilityDetailModal();
+            }
+        }
+
+        function showToast(message, iconClass = "fa-circle-check") {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toastMessage.textContent = message;
+            toastIcon.className = `fa-solid ${iconClass} text-custom-accent text-base`;
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>

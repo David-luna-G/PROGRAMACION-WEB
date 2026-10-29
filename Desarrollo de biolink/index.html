@@ -1,6 +1,204 @@
 <!DOCTYPE html>
 <html lang="es" class="h-full bg-slate-950 text-slate-100">
 <head>
+
+<!-- CONTENEDOR DE REGISTRO CON BOTÓN DE ACTIVACIÓN -->
+<section class="my-6 p-1">
+  
+  <!-- BOTÓN VERDE PRINCIPAL PARA ACTIVAR EL REGISTRO -->
+  <button id="btn-toggle-register" onclick="toggleRegisterForm()" class="btn-green w-full py-3 px-4 font-extrabold text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-lg uppercase tracking-wide">
+    <i data-lucide="user-plus" class="w-4 h-4"></i>
+    <span>Registrarse Ahora</span>
+  </button>
+
+  <!-- FORMULARIO OCULTO (SE DESPLIEGA AL HACER CLIC) -->
+  <div id="register-container" class="register-card border-top-accent mt-3 hidden transition-all duration-300">
+    <div class="p-4 border-b border-slate-800 flex justify-between items-center">
+      <div>
+        <h3 class="font-heading font-bold text-sm text-slate-100 flex items-center gap-2">
+          <i data-lucide="user-check" class="w-4 h-4 text-emerald-400" aria-hidden="true"></i>
+          Registro de Usuario
+        </h3>
+        <p class="text-[11px] text-slate-400 mt-0.5">Completa tus datos para unirte a la plataforma.</p>
+      </div>
+      <!-- Botón para cerrar/ocultar el formulario -->
+      <button type="button" onclick="toggleRegisterForm()" class="text-slate-400 hover:text-white p-1 rounded-lg" aria-label="Cerrar formulario">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <form id="register-form" class="form p-4 space-y-3" action="https://api.web3forms.com/submit" method="POST" novalidate>
+      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+      <input type="hidden" name="subject" value="Nuevo Registro de Usuario - Nexus Tech">
+      <input type="hidden" name="from_name" value="Landing Page Nexus Tech">
+
+      <!-- Nombre -->
+      <div class="form__group">
+        <label for="name" class="form__label text-xs font-semibold text-slate-300">
+          Nombre completo <span class="required">*</span>
+        </label>
+        <input type="text" id="name" name="nombre" class="form__input" placeholder="Ej. Alex Mercer" required>
+      </div>
+
+      <!-- Edad -->
+      <div class="form__group">
+        <label for="age" class="form__label text-xs font-semibold text-slate-300">
+          Edad <span class="required">*</span>
+        </label>
+        <input type="number" id="age" name="edad" min="18" max="120" class="form__input" placeholder="Ej. 25" required>
+      </div>
+
+      <!-- Correo Electrónico -->
+      <div class="form__group">
+        <label for="email" class="form__label text-xs font-semibold text-slate-300">
+          Correo electrónico <span class="required">*</span>
+        </label>
+        <input type="email" id="email" name="correo" class="form__input" placeholder="usuario@ejemplo.com" required>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form__group">
+        <label for="password" class="form__label text-xs font-semibold text-slate-300">
+          Contraseña <span class="required">*</span>
+        </label>
+        <input type="password" id="password" name="password" minlength="8" class="form__input" placeholder="Mínimo 8 caracteres" required>
+      </div>
+
+      <!-- Botón de Envío -->
+      <button type="submit" id="btn-register" class="btn-green w-full py-2.5 px-4 font-bold text-xs rounded-lg transition flex items-center justify-center gap-2 shadow-lg">
+        <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+        <span>Completar Registro</span>
+      </button>
+
+      <!-- Mensaje de Respuesta -->
+      <div id="form-message" class="form__message hidden" role="alert" aria-live="polite"></div>
+    </form>
+  </div>
+
+</section>
+<!-- CONTENEDOR DE REGISTRO CON BOTÓN DE ACTIVACIÓN -->
+<section class="my-6 p-1">
+  
+  <!-- BOTÓN VERDE PRINCIPAL PARA ACTIVAR EL REGISTRO -->
+  <button id="btn-toggle-register" type="button" class="btn-green w-full py-3 px-4 font-extrabold text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-lg uppercase tracking-wide">
+    <i data-lucide="user-plus" class="w-4 h-4"></i>
+    <span>Registrarse Ahora</span>
+  </button>
+
+  <!-- FORMULARIO OCULTO (SE DESPLIEGA AL HACER CLIC) -->
+  <div id="register-container" class="register-card border-top-accent mt-3 hidden transition-all duration-300">
+    <div class="p-4 border-b border-slate-800 flex justify-between items-center">
+      <div>
+        <h3 class="font-heading font-bold text-sm text-slate-100 flex items-center gap-2">
+          <i data-lucide="user-check" class="w-4 h-4 text-emerald-400" aria-hidden="true"></i>
+          Registro de Usuario
+        </h3>
+        <p class="text-[11px] text-slate-400 mt-0.5">Completa tus datos para unirte a la plataforma.</p>
+      </div>
+      <!-- Botón para cerrar el formulario -->
+      <button id="btn-close-register" type="button" class="text-slate-400 hover:text-white p-1 rounded-lg" aria-label="Cerrar formulario">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <form id="register-form" class="form p-4 space-y-3" action="https://api.web3forms.com/submit" method="POST" novalidate>
+      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+      <input type="hidden" name="subject" value="Nuevo Registro de Usuario - Nexus Tech">
+      <input type="hidden" name="from_name" value="Landing Page Nexus Tech">
+
+      <!-- Nombre -->
+      <div class="form__group">
+        <label for="name" class="form__label text-xs font-semibold text-slate-300">
+          Nombre completo <span class="required">*</span>
+        </label>
+        <input type="text" id="name" name="nombre" class="form__input" placeholder="Ej. Alex Mercer" required>
+      </div>
+
+      <!-- Edad -->
+      <div class="form__group">
+        <label for="age" class="form__label text-xs font-semibold text-slate-300">
+          Edad <span class="required">*</span>
+        </label>
+        <input type="number" id="age" name="edad" min="18" max="120" class="form__input" placeholder="Ej. 25" required>
+      </div>
+
+      <!-- Correo Electrónico -->
+      <div class="form__group">
+        <label for="email" class="form__label text-xs font-semibold text-slate-300">
+          Correo electrónico <span class="required">*</span>
+        </label>
+        <input type="email" id="email" name="correo" class="form__input" placeholder="usuario@ejemplo.com" required>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form__group">
+        <label for="password" class="form__label text-xs font-semibold text-slate-300">
+          Contraseña <span class="required">*</span>
+        </label>
+        <input type="password" id="password" name="password" minlength="8" class="form__input" placeholder="Mínimo 8 caracteres" required>
+      </div>
+
+      <!-- Botón de Envío -->
+      <button type="submit" id="btn-register" class="btn-green w-full py-2.5 px-4 font-bold text-xs rounded-lg transition flex items-center justify-center gap-2 shadow-lg">
+        <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+        <span>Completar Registro</span>
+      </button>
+
+      <!-- Mensaje de Respuesta -->
+      <div id="form-message" class="form__message hidden" role="alert" aria-live="polite"></div>
+    </form>
+  </div>
+
+</section>
+
+<!-- SECCIÓN FORMULARIO DE CONTACTO -->
+<section class="my-6 p-1">
+  <div class="rpg-card rounded-xl p-4 border border-slate-800 space-y-4">
+    <div class="border-b border-slate-800 pb-2">
+      <h3 class="font-heading font-bold text-sm text-slate-100 flex items-center gap-2">
+        <i data-lucide="mail" class="w-4 h-4 text-slate-300" aria-hidden="true"></i>
+        Contacto Directo
+      </h3>
+      <p class="text-[11px] text-slate-400 mt-0.5">Envíanos un mensaje para consultar sobre nuestros servicios.</p>
+    </div>
+
+    <form id="contactForm" class="space-y-3" novalidate>
+      <!-- Nombre -->
+      <div class="form-group flex flex-col gap-1">
+        <label for="contact-name" class="text-xs font-semibold text-slate-300">Nombre</label>
+        <input type="text" id="contact-name" name="name" class="form-input" placeholder="Tu nombre" required>
+        <span class="error-message text-[10px] text-rose-400 hidden" id="nameError"></span>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group flex flex-col gap-1">
+        <label for="contact-email" class="text-xs font-semibold text-slate-300">Correo Electrónico</label>
+        <input type="email" id="contact-email" name="email" class="form-input" placeholder="tu@email.com" required>
+        <span class="error-message text-[10px] text-rose-400 hidden" id="emailError"></span>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="form-group flex flex-col gap-1">
+        <label for="contact-phone" class="text-xs font-semibold text-slate-300">Teléfono (10 dígitos)</label>
+        <input type="tel" id="contact-phone" name="phone" class="form-input" placeholder="1234567890" required>
+        <span class="error-message text-[10px] text-rose-400 hidden" id="phoneError"></span>
+      </div>
+
+      <!-- Mensaje -->
+      <div class="form-group flex flex-col gap-1">
+        <label for="contact-message" class="text-xs font-semibold text-slate-300">Mensaje</label>
+        <textarea id="contact-message" name="message" rows="4" class="form-input resize-none" placeholder="Escribe tu mensaje aquí..." required></textarea>
+        <span class="error-message text-[10px] text-rose-400 hidden" id="messageError"></span>
+      </div>
+
+      <!-- Botón de Envío -->
+      <button type="submit" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-white text-slate-950 font-extrabold text-xs rounded-lg transition-colors flex items-center justify-center gap-2 shadow">
+        <i data-lucide="send" class="w-3.5 h-3.5"></i>
+        <span>Enviar Mensaje</span>
+      </button>
+    </form>
+  </div>
+</section>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   

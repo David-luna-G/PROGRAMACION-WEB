@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de promedio</title>
+</head>
+
+<body>
+  <h1>Calculadora de promedio</h1>
+
+  <form id="formulario">
+    <label for="materia">Nombre de la materia:</label>
+    <br>
+    <input type="text" id="materia" required>
+    <br><br>
+
+    <label for="calificacion1">Calificación 1:</label>
+    <br>
+    <input
+      type="number"
+      id="calificacion1"
+      min="0"
+      max="100"
+      step="0.1"
+      required
+    >
+    <br><br>
+
+    <label for="calificacion2">Calificación 2:</label>
+    <br>
+    <input
+      type="number"
+      id="calificacion2"
+      min="0"
+      max="100"
+      step="0.1"
+      required
+    >
+    <br><br>
+
+    <label for="calificacion3">Calificación 3:</label>
+    <br>
+    <input
+      type="number"
+      id="calificacion3"
+      min="0"
+      max="100"
+      step="0.1"
+      required
+    >
+    <br><br>
+
+    <button type="submit">Calcular promedio</button>
+  </form>
+
+  <hr>
+
+  <div id="widgetMensaje">
+    Aquí aparecerá el resultado.
+  </div>
+
+  <script>
+    document.getElementById('formulario').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Obtener calificaciones
+      const c1 = parseFloat(document.getElementById('calificacion1').value);
+      const c2 = parseFloat(document.getElementById('calificacion2').value);
+      const c3 = parseFloat(document.getElementById('calificacion3').value);
+
+      // Calcular promedio
+      const promedio = (c1 + c2 + c3) / 3;
+      let mensaje = "";
+
+      // Evaluar rango
+      if (promedio >= 90 && promedio <= 100) {
+        mensaje = "excelente";
+      } else if (promedio >= 70 && promedio < 90) {
+        mensaje = "bueno";
+      } else if (promedio < 70) {
+        mensaje = "insuficiente";
+      } else {
+        mensaje = "Calificación fuera de rango";
+      }
+
+      // Desplegar solo el mensaje
+      document.getElementById('widgetMensaje').textContent = mensaje;
+    });
+  </script>
+</body>
+</html>

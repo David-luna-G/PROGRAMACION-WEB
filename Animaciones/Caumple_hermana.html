@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Hermanita!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #050505;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Pantalla Misteriosa */
+        #pantalla-misterio {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            cursor: pointer;
+            transition: opacity 1.5s ease;
+        }
+
+        .texto-misterio {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #ffffff;
+            text-shadow: 0 0 20px #ffffff, 0 0 30px #ff6236;
+            animation: palpitar 2s infinite;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @keyframes palpitar {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* Contenido Principal (Oculto al inicio) */
+        #contenido-principal {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            opacity: 0;
+            transition: opacity 2s ease 1s;
+            pointer-events: none;
+        }
+
+        .titulo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            text-align: center;
+            margin: 0;
+            background: linear-gradient(135deg, #ffd85f, #ff6236);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(255, 98, 54, 0.6));
+        }
+
+        .subtitulo {
+            font-size: 2rem;
+            margin-top: -10px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+
+        /* Botón de la carta */
+        .boton-magico {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 216, 95, 0.3);
+            pointer-events: auto;
+        }
+
+        .boton-magico:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 216, 95, 0.6);
+        }
+
+        /* La Carta (Glassmorphism) */
+        #carta-panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 85%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            background: rgba(20, 20, 20, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 35px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 20;
+            pointer-events: auto;
+        }
+
+        #carta-panel.activa {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .carta-texto {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 20px;
+            color: #eaeaea;
+        }
+
+        .cerrar-btn {
+            background: #ff6236;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin-top: 10px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Reproductor oculto de YouTube -->
+    <div id="youtube-player" style="display:none;"></div>
+
+    <!-- Pantalla de Misterio -->
+    <div id="pantalla-misterio">
+        <div class="texto-misterio">¿Qué será...? Da clic aquí 🥳</div>
+    </div>
+
+    <canvas id="canvasFuegos"></canvas>
+
+    <div id="contenido-principal">
+        <h1 class="titulo">Feliz 3 de Noviembre</h1>
+        <h2 class="subtitulo">¡Feliz Cumpleaños Hermanita!</h2>
+        <button class="boton-magico" id="btn-abrir">Abrir tu carta sorpresa 🥳</button>
+    </div>
+
+    <!-- La carta oculta -->
+    <div id="carta-panel">
+        <div class="carta-texto">
+            Hoy 3 de noviembre nació una persona a la cual yo no conocería hasta 10 años después. Esa persona es mi querida hermana, que pasa que la quiero mucho, a pesar de que siempre dice que es un pan de Dios... pero ambos sabemos que no es un pan de Dios 😂.
+        </div>
+        <div class="carta-texto">
+            Pero ya que es el primer cumpleaños literalmente fuera de casa porque ya estás casada con tu esposo (espero y te esté cuidando mucho), quería desearte un feliz cumpleaños mediante una página web interactiva y de lo que he estado aprendiendo en programas en web.
+        </div>
+        <div class="carta-texto">
+            Deseo también que cumplas muchos años más, que vivas mucho tiempo, que te la pases a gusto, que cumplas tus sueños, tus metas y todo lo que te propongas.
+        </div>
+        <div class="carta-texto">
+            Te extraño mucho a pesar de que ya no estás en mi casa... pero bueno, por lo menos sé que tengo una muy buena hermana, aunque me regañaba mucho. Pero era divertido a fin de cuentas, molestar a tu hermana mayor es muy divertido.
+        </div>
+        <div style="text-align: center; font-size: 1.4rem; color: #ffd85f; font-weight: bold; margin-top: 25px;">
+            ¡Feliz cumpleaños hermanita, pásatela bien! 🥳
+        </div>
+        <button class="cerrar-btn" id="btn-cerrar">Cerrar carta</button>
+    </div>
+
+    <script>
+        // --- MOTOR DE SONIDO (WEB AUDIO API) ---
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function reproducirSonidoExplosion(xNormalizada) {
+            if (!audioCtx) return;
+
+            // Generador de Ruido Blanco
+            const bufferSize = audioCtx.sampleRate * 0.4; // 0.4 segundos de explosión
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+
+            const whiteNoise = audioCtx.createBufferSource();
+            whiteNoise.buffer = buffer;
+
+            // Filtro de frecuencia (Simula el retumbo grave)
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(800, audioCtx.currentTime);
+            filter.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.4);
+
+            // Control de volumen / Envolvente
+            const gainNode = audioCtx.createGain();
+            gainNode.gain.setValueAtTime(0.6, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+
+            // Paneo Estéreo (Izquierda/Derecha según la pantalla)
+            const panner = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+            if (panner) {
+                panner.pan.value = (xNormalizada * 2) - 1; // Convertir 0...1 a -1...1
+                whiteNoise.connect(filter);
+                filter.connect(gainNode);
+                gainNode.connect(panner);
+                panner.connect(audioCtx.destination);
+            } else {
+                whiteNoise.connect(filter);
+                filter.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+            }
+
+            whiteNoise.start();
+            whiteNoise.stop(audioCtx.currentTime + 0.4);
+        }
+
+        // --- CONFIGURACIÓN DE YOUTUBE ---
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: 'isfKiVM-M6A',
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'disablekb': 1,
+                    'loop': 1,
+                    'playlist': 'isfKiVM-M6A'
+                }
+            });
+        }
+
+        // --- LÓGICA DE PANTALLAS ---
+        const pantallaMisterio = document.getElementById('pantalla-misterio');
+        const contenidoPrincipal = document.getElementById('contenido-principal');
+        const btnAbrir = document.getElementById('btn-abrir');
+        const btnCerrar = document.getElementById('btn-cerrar');
+        const cartaPanel = document.getElementById('carta-panel');
+
+        pantallaMisterio.addEventListener('click', () => {
+            initAudio();
+
+            // Reproducir música
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+            }
+            
+            pantallaMisterio.style.opacity = '0';
+            setTimeout(() => {
+                pantallaMisterio.style.display = 'none';
+                contenidoPrincipal.style.opacity = '1';
+                contenidoPrincipal.style.pointerEvents = 'auto';
+                
+                // Gran final de inicio
+                launchBurst(8);
+            }, 1000);
+        });
+
+        btnAbrir.addEventListener('click', () => {
+            cartaPanel.classList.add('activa');
+        });
+
+        btnCerrar.addEventListener('click', () => {
+            cartaPanel.classList.remove('activa');
+        });
+
+        // --- SISTEMA DE FUEGOS ARTIFICIALES ---
+        const canvas = document.getElementById('canvasFuegos');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        class Particula {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                const angulo = Math.random() * Math.PI * 2;
+                const velocidad = Math.random() * 8 + 2;
+                this.vx = Math.cos(angulo) * velocidad;
+                this.vy = Math.sin(angulo) * velocidad;
+                this.friccion = 0.96;
+                this.gravedad = 0.05;
+                this.alfa = 1;
+                this.decaimiento = Math.random() * 0.015 + 0.01;
+            }
+            actualizar() {
+                this.vx *= this.friccion;
+                this.vy *= this.friccion;
+                this.vy += this.gravedad;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alfa -= this.decaimiento;
+            }
+            dibujar() {
+                ctx.save();
+                ctx.globalAlpha = this.alfa;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        class Cohete {
+            constructor(x, y, destinoY) {
+                this.x = x;
+                this.y = y;
+                this.destinoY = destinoY;
+                this.velocidad = Math.random() * 3 + 5;
+                this.explotado = false;
+                const colores = ['#ff6236', '#ffd85f', '#ff0055', '#00ffcc', '#b700ff', '#ffffff'];
+                this.color = colores[Math.floor(Math.random() * colores.length)];
+            }
+            actualizar() {
+                this.y -= this.velocidad;
+                if (this.y <= this.destinoY) {
+                    this.explotar();
+                }
+            }
+            dibujar() {
+                if (!this.explotado) {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = '#fff';
+                    ctx.shadowBlur = 15;
+                    ctx.shadowColor = this.color;
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+            explotar() {
+                this.explotado = true;
+                
+                // Reproduce el sonido sintético de la explosión
+                reproducirSonidoExplosion(this.x / canvas.width);
+
+                for (let i = 0; i < 180; i++) {
+                    particulas.push(new Particula(this.x, this.y, this.color));
+                }
+            }
+        }
+
+        let cohetes = [];
+        let particulas = [];
+
+        function lanzarCohete(x = Math.random() * canvas.width) {
+            const y = canvas.height;
+            const destinoY = Math.random() * (canvas.height * 0.5) + 50;
+            cohetes.push(new Cohete(x, y, destinoY));
+        }
+
+        function launchBurst(cantidad) {
+            for(let i=0; i<cantidad; i++) {
+                setTimeout(() => lanzarCohete(), i * 150);
+            }
+        }
+
+        function animar() {
+            requestAnimationFrame(animar);
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            cohetes.forEach((cohete, index) => {
+                cohete.actualizar();
+                cohete.dibujar();
+                if (cohete.explotado) cohetes.splice(index, 1);
+            });
+
+            particulas.forEach((particula, index) => {
+                particula.actualizar();
+                particula.dibujar();
+                if (particula.alfa <= 0) particulas.splice(index, 1);
+            });
+        }
+
+        setInterval(() => {
+            if(pantallaMisterio.style.display === 'none') {
+                lanzarCohete();
+                if(Math.random() > 0.5) lanzarCohete();
+            }
+        }, 650);
+
+        canvas.addEventListener('click', (e) => {
+            lanzarCohete(e.clientX);
+        });
+
+        animar();
+    </script>
+</body>
+</html>
